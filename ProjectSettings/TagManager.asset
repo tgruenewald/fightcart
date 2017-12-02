@@ -7,6 +7,8 @@ TagManager:
   - cart
   - referee
   - wall
+  - blue_square
+  - item
   layers:
   - Default
   - TransparentFX

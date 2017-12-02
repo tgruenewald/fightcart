@@ -55,7 +55,9 @@ GameObject:
   - component: {fileID: 50114173624488304}
   - component: {fileID: 58182737789010278}
   - component: {fileID: 114983640631834322}
-  - component: {fileID: 58407470127256650}
+  - component: {fileID: 61065603084894004}
+  - component: {fileID: 61455145515860306}
+  - component: {fileID: 61463501383934220}
   m_Layer: 0
   m_Name: enemy_cart
   m_TagString: cart
@@ -70,7 +72,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1784569193686678}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.34, y: 2.94, z: 0}
+  m_LocalPosition: {x: 4.3816013, y: 1.8865229, z: 0}
   m_LocalScale: {x: 0.6, y: 0.6, z: 1}
   m_Children:
   - {fileID: 4501952197541140}
@@ -138,8 +140,8 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 2.5672753
---- !u!58 &58407470127256650
-CircleCollider2D:
+--- !u!61 &61065603084894004
+BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -149,9 +151,37 @@ CircleCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.8771522, y: 0.04048347}
   serializedVersion: 2
-  m_Radius: 1
+  m_Size: {x: 0.24569193, y: 1.163332}
+--- !u!61 &61455145515860306
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1784569193686678}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: -0.76919466}
+  serializedVersion: 2
+  m_Size: {x: 1.9999999, y: 0.46161056}
+--- !u!61 &61463501383934220
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1784569193686678}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0.7556994, y: -0.21591423}
+  serializedVersion: 2
+  m_Size: {x: 0.48859516, y: 1.5681715}
 --- !u!114 &114983640631834322
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -166,7 +196,7 @@ MonoBehaviour:
   speed: 0.05
   cartDistance: 2
   giveUpDistance: 8
-  cartName: B
+  cartName: A
   coolingDown: 0
   inFight: 0
   iAmEnemy: 1

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class FightCart : MonoBehaviour {
 	Transform targetCart = null;
+	Transform targetItem = null;
 	bool followCart = false;
 	bool firstContact = false;
 	public float speed = .05f;
@@ -18,11 +19,14 @@ public class FightCart : MonoBehaviour {
 
 	public bool iAmEnemy = true;
 
-	 private IEnumerator fightTimer;
+	private IEnumerator fightTimer;
+
+	public Queue<Transform> itemQueue;
 
 	// Use this for initialization
 	void Start () {
 		// fightTimer = fightCheck();
+		itemQueue = new Queue<Transform>();
 	}
 	
 	// Update is called once per frame
@@ -81,6 +85,18 @@ public class FightCart : MonoBehaviour {
 		GetComponent<SpriteRenderer> ().flipY = false;
 	}
 	void OnTriggerEnter2D(Collider2D coll){
+		Debug.Log("coll.gameObject.tag: " + coll.gameObject.name);
+		if (coll.gameObject.tag == "item") {
+			itemQueue.Enqueue(coll.gameObject.transform);
+			if (targetItem == null) {
+				targetItem = itemQueue.Dequeue();
+			}
+		}
+		if (iAmEnemy && !followCart && targetItem == null && coll.gameObject.tag == "blue_square" && !inFight) {
+			// move to item
+			Debug.Log("Moving toward item");
+			targetItem = coll.transform;
+		}
 
 		if (iAmEnemy && coll.gameObject.tag == "cart" && !inFight) {
 			// StopAllCoroutines();
@@ -96,11 +112,19 @@ public class FightCart : MonoBehaviour {
 	}
 
 	void FixedUpdate () {
+		if (iAmEnemy && !followCart && !inFight) {
+			if (targetItem != null) {
+				transform.position = Vector3.MoveTowards(transform.position, targetItem.position, speed);			
+				float distance = Vector3.Distance (transform.position, targetItem.position);
+				Debug.Log("dist to item: " + distance + ", " + cartDistance);
+				if (distance < 0.1f) {
+					targetItem = itemQueue.Dequeue();
+				}	
+			}
+		
+		}
 		if (iAmEnemy && followCart) {
 			transform.position = Vector3.MoveTowards(transform.position, targetCart.position, speed);			
-			//			Rigidbody2D rb = GetComponent<Rigidbody2D> ();
-			//			rb.velocity = Vector3.Normalize (targetPosition - transform.position) * speed;
-			//transform.position = Vector3.MoveTowards (transform.position, target.position, step);
 			float distance = Vector3.Distance (transform.position, targetCart.position);
 			// Debug.Log("dist: " + distance + ", " + cartDistance);
 			if (distance < cartDistance) {
