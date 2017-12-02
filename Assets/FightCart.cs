@@ -82,7 +82,7 @@ public class FightCart : MonoBehaviour {
 	}
 	void OnTriggerEnter2D(Collider2D coll){
 
-		if (iAmEnemy && coll.gameObject.tag == "cart") {
+		if (iAmEnemy && coll.gameObject.tag == "cart" && !inFight) {
 			// StopAllCoroutines();
 			firstContact = true;
 			collidedCart = coll.gameObject;

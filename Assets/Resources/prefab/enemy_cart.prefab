@@ -71,7 +71,7 @@ Transform:
   m_GameObject: {fileID: 1784569193686678}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -6.34, y: 2.94, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 1}
   m_Children:
   - {fileID: 4501952197541140}
   - {fileID: 4472854075005588}
@@ -137,7 +137,7 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 4.979789
+  m_Radius: 2.5672753
 --- !u!58 &58407470127256650
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -164,8 +164,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.05
-  cartDistance: 0.5
-  giveUpDistance: 3
+  cartDistance: 2
+  giveUpDistance: 8
   cartName: B
   coolingDown: 0
   inFight: 0

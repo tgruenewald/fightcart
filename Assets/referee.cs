@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Referee : MonoBehaviour {
-	Vector3 offsetVector = new Vector3(1,0,0);
+	Vector3 offsetVector = new Vector3(.3f,0,0);
 	public void start_fight(GameObject cart1, GameObject cart2) {
 
 		FightCart c1 = cart1.GetComponent<FightCart> ();			
