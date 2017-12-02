@@ -9,6 +9,9 @@ public class enemy_cart : MonoBehaviour {
 	float cartDistance = 2f;
 	float fightDistance = 0.2f;
 
+	public bool inFight = false;
+	GameObject collidedCart;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -22,9 +25,19 @@ public class enemy_cart : MonoBehaviour {
 	IEnumerator fightCheck() {
 		yield return new WaitForSeconds (2f);
 		float distance = Vector3.Distance (transform.position, targetCart.position);
-		if (distance < cartDistance) {
+		if (distance < cartDistance && !inFight) {
+			// At this point i need to contact another game object that will start the fight.
+			// To do this, each cart will need its id checked to make sure that it isn't already 
+			// part of the fight.  This leaves the question what happens when 3 or more carts 
+			// potentially enter into a fight?  Since only 2 carts can fight at once this 
+			// will need to be resolved by the arbitrator.
+
+			var referee = GameObject.FindGameObjectWithTag ("referee");
+			referee.GetComponent<referee> ().start_fight (gameObject, collidedCart);
+
+			inFight = true;
 			Debug.Log ("Fight!!");
-			var shopper = (GameObject) Instantiate(Resources.Load("prefab/shopper"), GetComponent<Transform>().position, GetComponent<Transform>().rotation) ;
+
 		}
 		else {
 			StartCoroutine (fightCheck ());	
@@ -40,6 +53,7 @@ public class enemy_cart : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D coll){
 
 		if (coll.gameObject.tag == "cart") {
+			collidedCart = coll.gameObject;
 			Debug.Log ("Cart is aggroed");
 			GetComponent<SpriteRenderer> ().material.SetColor ("_Color", Color.red);
 			GetComponent<SpriteRenderer> ().flipY = true;

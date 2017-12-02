@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class cart : MonoBehaviour {
+public class cart : enemy_cart {
 	public float speed = .2f;
 	private Vector3 targetPosition;
 	private bool isMousePositionSet = false;
