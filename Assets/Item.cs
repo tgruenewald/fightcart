@@ -14,7 +14,7 @@ public class Item : MonoBehaviour {
 		yield return new WaitForSeconds (0.2f);
 		if (gameObject.transform.parent != null) {
 			float distance = Vector3.Distance (transform.position, gameObject.transform.parent.position);
-			if (distance > 2f) {
+			if (distance > 1f) {
 				Debug.Log("bye bye");
 				gameObject.transform.parent = null;
 				isConnected = false;

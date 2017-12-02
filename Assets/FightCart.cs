@@ -52,6 +52,7 @@ public class FightCart : MonoBehaviour {
 	}
 	IEnumerator coolDownCoRoutine() {
 		coolingDown = true;
+		itemQueue.Clear();
 		yield return new WaitForSeconds (3f);
 		coolingDown = false;
 	}
@@ -106,7 +107,7 @@ public class FightCart : MonoBehaviour {
 
 
 		}
-		if (iAmEnemy && !followCart && targetItem == null && coll.gameObject.tag == "blue_square" && !inFight) {
+		if (iAmEnemy && !followCart && targetItem == null && !coolingDown && !inFight) {
 			// move to item
 			Debug.Log("Moving toward item");
 			targetItem = coll.transform;
