@@ -19,6 +19,8 @@ public class Cart : FightCart {
 	void Update () {
 		
 	}
+
+
 	void FixedUpdate () {
 
 		if (!inFight) {

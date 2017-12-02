@@ -21,12 +21,11 @@ public class FightCart : MonoBehaviour {
 
 	private IEnumerator fightTimer;
 
-	public Queue<Transform> itemQueue;
+	public Queue<Transform> itemQueue = new Queue<Transform>();
 
 	// Use this for initialization
 	void Start () {
 		// fightTimer = fightCheck();
-		itemQueue = new Queue<Transform>();
 	}
 	
 	// Update is called once per frame
@@ -78,19 +77,34 @@ public class FightCart : MonoBehaviour {
 		// }
 
 	}
-
+	public void loseItem() {
+		Transform[] trans = GetComponentsInChildren<Transform>();
+		Debug.Log("Loser is " + cartName);
+		if (trans.Length > 0) {
+			foreach( Transform t in trans) {
+				if (t.tag == "item") {
+					Debug.Log("removing item");
+					t.GetComponent<Rigidbody2D>().AddForce(Vector3.up * 5f, ForceMode2D.Impulse);
+				}
+			}
+		}
+	}
 	IEnumerator cartAggroed() {
 		yield return new WaitForSeconds (0.5f);
 		followCart = true;
+		itemQueue.Clear();
 		GetComponent<SpriteRenderer> ().flipY = false;
 	}
 	void OnTriggerEnter2D(Collider2D coll){
-		Debug.Log("coll.gameObject.tag: " + coll.gameObject.name);
+		// Debug.Log("coll.gameObject.tag: " + coll.gameObject.name);
 		if (coll.gameObject.tag == "item") {
 			itemQueue.Enqueue(coll.gameObject.transform);
-			if (targetItem == null) {
+			if (itemQueue.Count > 0) {
 				targetItem = itemQueue.Dequeue();
-			}
+			}	
+			
+
+
 		}
 		if (iAmEnemy && !followCart && targetItem == null && coll.gameObject.tag == "blue_square" && !inFight) {
 			// move to item
@@ -116,9 +130,12 @@ public class FightCart : MonoBehaviour {
 			if (targetItem != null) {
 				transform.position = Vector3.MoveTowards(transform.position, targetItem.position, speed);			
 				float distance = Vector3.Distance (transform.position, targetItem.position);
-				Debug.Log("dist to item: " + distance + ", " + cartDistance);
+				// Debug.Log("dist to item: " + distance + ", " + cartDistance);
 				if (distance < 0.1f) {
-					targetItem = itemQueue.Dequeue();
+					if (itemQueue.Count > 0) {
+						targetItem = itemQueue.Dequeue();	
+					}
+
 				}	
 			}
 		

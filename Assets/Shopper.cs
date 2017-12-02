@@ -28,7 +28,14 @@ public class Shopper : MonoBehaviour {
 		defender.health--;
 		if (defender.health <= 0 || aggressor.health <= 0) {
 			// fight over
-			Debug.Log("fight over: " + s1.cart.cartName + ", " + s2.cart.cartName);
+			Debug.Log("fight over: " + s1.cart.cartName + ", " + s2.cart.cartName + " d: " + defender.health + ", a:" + aggressor.health);
+
+			if (defender.health <= 0) {
+				defender.cart.loseItem();
+			}
+			else {
+				aggressor.cart.loseItem();
+			}
 			s1.cart.inFight = false;
 			s2.cart.inFight = false;
 			s1.cart.coolDown ();

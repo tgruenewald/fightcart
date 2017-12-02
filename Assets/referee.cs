@@ -41,9 +41,12 @@ public class Referee : MonoBehaviour {
 			}
 			var shopper1 = (GameObject) Instantiate(Resources.Load("prefab/shopper"), loc.position + offsetVector, loc.transform.rotation) ;
 			var shopper2 = (GameObject) Instantiate(Resources.Load("prefab/shopper"), loc.position - offsetVector, loc.transform.rotation) ;
+
 			shopper2.GetComponent<SpriteRenderer> ().flipX = true;
 			shopper1.GetComponent<Shopper> ().cart = c1;
 			shopper2.GetComponent<Shopper> ().cart = c2;
+			shopper1.GetComponent<Shopper> ().health = Random.Range(0, 3);
+			shopper2.GetComponent<Shopper> ().health = Random.Range(0, 3);
 			shopper1.GetComponent<Shopper> ().fight (shopper2.GetComponent<Shopper> ());
 		}
 
