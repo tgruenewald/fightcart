@@ -23,9 +23,26 @@ public class FightCart : MonoBehaviour {
 
 	public Queue<Transform> itemQueue = new Queue<Transform>();
 
+	public string[] wantedItem = {"square", "triangle", "circle"};
+	public int wantedItemIndex = 0;
+
 	// Use this for initialization
 	void Start () {
 		// fightTimer = fightCheck();
+		showWantedItem() ;
+
+		//GameObject.Find(wantedItem[wantedItemIndex]).GetCo//mponent<SpriteRenderer>().enabled = true;
+	}
+	public void showWantedItem() {
+		wantedItemIndex = Random.Range(0,3);
+		Debug.Log("wanted item: " + wantedItem[wantedItemIndex]);
+		foreach(SpriteRenderer c in GetComponentsInChildren<SpriteRenderer>()) {
+			Debug.Log("c = " + c.name);
+			if (c.name == wantedItem[wantedItemIndex]) {
+				Debug.Log("enabling");
+				c.enabled = true;
+			}
+		}
 	}
 	
 	// Update is called once per frame
@@ -45,6 +62,8 @@ public class FightCart : MonoBehaviour {
         StartCoroutine (postFightTimer ());
 
     }
+
+
 
 	public void coolDown() {
 		// GetComponent<Rigidbody2D> ().isKinematic = false;

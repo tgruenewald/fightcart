@@ -13,6 +13,7 @@ public class Cart : FightCart {
 		cartName = "mine";
 		speed = .06f;
 		iAmEnemy = false;
+		showWantedItem() ;
 	}
 	
 	// Update is called once per frame
