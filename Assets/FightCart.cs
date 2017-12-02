@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class FightCart : MonoBehaviour {
-	Transform targetCart;
+	Transform targetCart = null;
 	bool followCart = false;
+	bool firstContact = false;
 	public float speed = .05f;
 	public float cartDistance = .5f;
 
@@ -37,6 +38,7 @@ public class FightCart : MonoBehaviour {
     }
 
     public void postFight() {
+		firstContact = false;
         StartCoroutine (postFightTimer ());
 
     }
@@ -82,6 +84,7 @@ public class FightCart : MonoBehaviour {
 
 		if (iAmEnemy && coll.gameObject.tag == "cart") {
 			// StopAllCoroutines();
+			firstContact = true;
 			collidedCart = coll.gameObject;
 			Debug.Log ("Cart("+cartName+") is aggroed by " + collidedCart.GetComponent<FightCart>().cartName);
 			GetComponent<SpriteRenderer> ().material.SetColor ("_Color", Color.red);
@@ -114,6 +117,18 @@ public class FightCart : MonoBehaviour {
 				followCart = false;
 			}
 		}	
+
+		// check for closeness to last fight
+		if (!firstContact && !followCart && !coolingDown && targetCart != null) {
+			float distance = Vector3.Distance (transform.position, targetCart.position);	
+			if (distance < cartDistance) {
+				coolDown();
+				Vector3 moveAway = Random.onUnitSphere * 3f;
+				Debug.Log("move away again: " + moveAway);
+				GetComponent<Rigidbody2D> ().velocity = moveAway;				
+			}
+
+		}
 
 
 
