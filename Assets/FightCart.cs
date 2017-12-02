@@ -15,6 +15,8 @@ public class FightCart : MonoBehaviour {
 	public bool inFight = false;
 	GameObject collidedCart;
 
+	public bool iAmEnemy = true;
+
 	 private IEnumerator fightTimer;
 
 	// Use this for initialization
@@ -65,10 +67,10 @@ public class FightCart : MonoBehaviour {
 	}
 	void OnTriggerEnter2D(Collider2D coll){
 
-		if (coll.gameObject.tag == "cart") {
+		if (iAmEnemy && coll.gameObject.tag == "cart") {
 			// StopAllCoroutines();
 			collidedCart = coll.gameObject;
-			Debug.Log ("Cart is aggroed");
+			Debug.Log ("Cart("+cartName+") is aggroed by " + collidedCart.GetComponent<FightCart>().cartName);
 			GetComponent<SpriteRenderer> ().material.SetColor ("_Color", Color.red);
 			GetComponent<SpriteRenderer> ().flipY = true;
 			StartCoroutine (cartAggroed ());
@@ -78,7 +80,7 @@ public class FightCart : MonoBehaviour {
 	}
 
 	void FixedUpdate () {
-		if (followCart) {
+		if (iAmEnemy && followCart) {
 			transform.position = Vector3.MoveTowards(transform.position, targetCart.position, speed);			
 			//			Rigidbody2D rb = GetComponent<Rigidbody2D> ();
 			//			rb.velocity = Vector3.Normalize (targetPosition - transform.position) * speed;

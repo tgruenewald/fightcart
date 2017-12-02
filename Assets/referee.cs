@@ -14,7 +14,7 @@ public class Referee : MonoBehaviour {
 			c2.inFight = true;
 			// cart1.GetComponent<Rigidbody2D> ().isKinematic = true;
 			cart1.GetComponent<Rigidbody2D> ().velocity = Vector3.zero;
-			// cart2.GetComponent<Rigidbody2D> ().isKinematic = true;
+
 			cart2.GetComponent<Rigidbody2D> ().velocity = Vector3.zero;
 			Transform c1fl = c1.transform.FindChild ("fight_left");
 			Transform c1fr = c1.transform.FindChild ("fight_right");
