@@ -28,6 +28,19 @@ public class FightCart : MonoBehaviour {
 	void Update () {
 	
 	}
+
+    IEnumerator postFightTimer() {
+        yield return new WaitForSeconds (1f);
+        Debug.Log("Stopping cart " + cartName);
+        GetComponent<Rigidbody2D> ().velocity = Vector3.zero;
+        // StartCoroutine(normalShoppingTimer());
+    }
+
+    public void postFight() {
+        StartCoroutine (postFightTimer ());
+
+    }
+
 	public void coolDown() {
 		// GetComponent<Rigidbody2D> ().isKinematic = false;
 		StartCoroutine (coolDownCoRoutine ());

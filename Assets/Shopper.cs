@@ -33,6 +33,8 @@ public class Shopper : MonoBehaviour {
 			s2.cart.inFight = false;
 			s1.cart.coolDown ();
 			s2.cart.coolDown ();
+			s1.cart.postFight();
+			s2.cart.postFight();
 			Vector3 moveAway = Random.onUnitSphere * 3f;
 			Debug.Log("move away: " + moveAway);
 			s2.cart.GetComponent<Rigidbody2D> ().velocity = moveAway;
