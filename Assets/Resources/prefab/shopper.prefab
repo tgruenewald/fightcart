@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4256216521406362}
   - component: {fileID: 212550542251412500}
+  - component: {fileID: 114920010381024596}
   m_Layer: 0
   m_Name: shopper
   m_TagString: Untagged
@@ -34,12 +35,25 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1348879308975210}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -6.93052, y: 0.25774673, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114920010381024596
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1348879308975210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a989218a696097b488b62b5665b8e4b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cart: {fileID: 0}
+  health: 3
 --- !u!212 &212550542251412500
 SpriteRenderer:
   m_ObjectHideFlags: 1

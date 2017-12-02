@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class enemy_cart : MonoBehaviour {
+public class FightCart : MonoBehaviour {
 	Transform targetCart;
 	bool followCart = false;
-	float speed = .05f;
+	public float speed = .05f;
 	float cartDistance = 2f;
 	float fightDistance = 0.2f;
+	public string name = "other";
+	public bool coolingDown = false;
 
 	public bool inFight = false;
 	GameObject collidedCart;
@@ -21,7 +23,15 @@ public class enemy_cart : MonoBehaviour {
 	void Update () {
 		
 	}
-
+	public void coolDown() {
+		// GetComponent<Rigidbody2D> ().isKinematic = false;
+		StartCoroutine (coolDownCoRoutine ());
+	}
+	IEnumerator coolDownCoRoutine() {
+		coolingDown = true;
+		yield return new WaitForSeconds (3f);
+		coolingDown = false;
+	}
 	IEnumerator fightCheck() {
 		yield return new WaitForSeconds (2f);
 		float distance = Vector3.Distance (transform.position, targetCart.position);
@@ -33,7 +43,7 @@ public class enemy_cart : MonoBehaviour {
 			// will need to be resolved by the arbitrator.
 
 			var referee = GameObject.FindGameObjectWithTag ("referee");
-			referee.GetComponent<referee> ().start_fight (gameObject, collidedCart);
+			referee.GetComponent<Referee> ().start_fight (gameObject, collidedCart);
 
 			inFight = true;
 			Debug.Log ("Fight!!");

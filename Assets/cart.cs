@@ -1,15 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class cart : enemy_cart {
-	public float speed = .2f;
+ 
+public class Cart : FightCart {
 	private Vector3 targetPosition;
 	private bool isMousePositionSet = false;
 
 	// Use this for initialization
 	void Start () {
-		
+		name = "mine";
+		speed = .2f;
 	}
 	
 	// Update is called once per frame
@@ -24,6 +24,7 @@ public class cart : enemy_cart {
 			targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			targetPosition.z = transform.position.z; // so it stays on the same z axis
 			isMousePositionSet = true;
+			GetComponent<Rigidbody2D> ().velocity = Vector3.zero;
 		}
 		if (isMousePositionSet) {
 			transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed);			
