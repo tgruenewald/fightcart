@@ -9,7 +9,7 @@ public class Cart : FightCart {
 	// Use this for initialization
 	void Start () {
 		cartName = "mine";
-		speed = .2f;
+		speed = .07f;
 	}
 	
 	// Update is called once per frame
