@@ -8,7 +8,7 @@ public class Cart : FightCart {
 
 	// Use this for initialization
 	void Start () {
-		name = "mine";
+		cartName = "mine";
 		speed = .2f;
 	}
 	

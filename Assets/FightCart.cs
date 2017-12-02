@@ -6,9 +6,10 @@ public class FightCart : MonoBehaviour {
 	Transform targetCart;
 	bool followCart = false;
 	public float speed = .05f;
-	float cartDistance = 2f;
-	float fightDistance = 0.2f;
-	public string name = "other";
+	public float cartDistance = 2f;
+
+	public float giveUpDistance = 10f;
+	public string cartName = "other";
 	public bool coolingDown = false;
 
 	public bool inFight = false;
@@ -21,7 +22,27 @@ public class FightCart : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if (followCart) {
+			transform.position = Vector3.MoveTowards(transform.position, targetCart.position, speed);			
+			//			Rigidbody2D rb = GetComponent<Rigidbody2D> ();
+			//			rb.velocity = Vector3.Normalize (targetPosition - transform.position) * speed;
+			//transform.position = Vector3.MoveTowards (transform.position, target.position, step);
+			float distance = Vector3.Distance (transform.position, targetCart.position);
+			Debug.Log("dist: " + distance);
+			if (distance < cartDistance) {
+				Debug.Log ("Cart caught");
+				GetComponent<SpriteRenderer> ().material.SetColor ("_Color", Color.white);
+				followCart = false;
+
+				// and they fight
+			}
+
+			if (distance > giveUpDistance) {
+				// too far, give up
+				Debug.Log("too far, give up: " + distance + ", " + giveUpDistance);
+				followCart = false;
+			}
+		}		
 	}
 	public void coolDown() {
 		// GetComponent<Rigidbody2D> ().isKinematic = false;
@@ -75,20 +96,7 @@ public class FightCart : MonoBehaviour {
 
 	void FixedUpdate () {
 
-		if (followCart) {
-			transform.position = Vector3.MoveTowards(transform.position, targetCart.position, speed);			
-			//			Rigidbody2D rb = GetComponent<Rigidbody2D> ();
-			//			rb.velocity = Vector3.Normalize (targetPosition - transform.position) * speed;
-			//transform.position = Vector3.MoveTowards (transform.position, target.position, step);
-			float distance = Vector3.Distance (transform.position, targetCart.position);
-			if (distance < cartDistance) {
-				Debug.Log ("Cart caught");
-				GetComponent<SpriteRenderer> ().material.SetColor ("_Color", Color.white);
-				followCart = false;
 
-				// and they fight
-			}
-		}
 
 
 	}
