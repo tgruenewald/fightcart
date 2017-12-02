@@ -165,10 +165,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0.05
   cartDistance: 0.5
-  giveUpDistance: 10
-  cartName: other
+  giveUpDistance: 3
+  cartName: B
   coolingDown: 0
   inFight: 0
+  iAmEnemy: 1
 --- !u!212 &212222419985775790
 SpriteRenderer:
   m_ObjectHideFlags: 1
