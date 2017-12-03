@@ -51,8 +51,18 @@ public class Referee : MonoBehaviour {
 			shopper2.GetComponent<SpriteRenderer> ().flipX = true;
 			shopper1.GetComponent<Shopper> ().cart = c1;
 			shopper2.GetComponent<Shopper> ().cart = c2;
-			shopper1.GetComponent<Shopper> ().health = Random.Range(1, 3);
-			shopper2.GetComponent<Shopper> ().health = Random.Range(1, 3);
+
+			// the fewer items, the stronger you are			
+			shopper1.GetComponent<Shopper> ().health = 6 - cart1.GetComponent<FightCart>().inventory.Count;
+			shopper2.GetComponent<Shopper> ().health = 6 - cart2.GetComponent<FightCart>().inventory.Count;
+
+			if (shopper1.GetComponent<Shopper> ().health <= 0) {
+				shopper1.GetComponent<Shopper> ().health = Random.Range(1,2);
+			}
+			if (shopper2.GetComponent<Shopper> ().health <= 0) {
+				shopper2.GetComponent<Shopper> ().health = Random.Range(1,2);
+			}
+
 			shopper1.GetComponent<Shopper> ().fight (shopper2.GetComponent<Shopper> ());
 		}
 

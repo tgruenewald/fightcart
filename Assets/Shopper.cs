@@ -23,6 +23,7 @@ public class Shopper : MonoBehaviour {
 			defender = s2;
 		}
 
+		Debug.Log("FIGHT STATUS: " + defender.cart.cartName + ", " + aggressor.cart.cartName + " d: " + defender.health + ", a:" + aggressor.health);
 		aggressor.GetComponent<SpriteRenderer> ().flipY = true;
 		defender.GetComponent<SpriteRenderer> ().flipY = false;
 		// if (defender.cart.iAmEnemy)  // TODO: remove later this way I win all fights
@@ -33,15 +34,15 @@ public class Shopper : MonoBehaviour {
 
 			if (defender.health > 0) {
 				Debug.Log("Defender wins: " + defender.cart.cartName);
-				var item = defender.cart.takeNeededItem(aggressor.cart.wishList);
+				var item = aggressor.cart.takeNeededItem(defender.cart.wishList);
 				Debug.Log("Taking item: " + item);
-				aggressor.cart.addInventory(item);
+				defender.cart.addInventory(item);				
 			}
 			else {
 				Debug.Log("aggressor wins: " + aggressor.cart.cartName);
-				var item = aggressor.cart.takeNeededItem(defender.cart.wishList);
+				var item = defender.cart.takeNeededItem(aggressor.cart.wishList);
 				Debug.Log("Taking item: " + item);
-				defender.cart.addInventory(item);
+				aggressor.cart.addInventory(item);
 			}
 			s1.cart.inFight = false;
 			s2.cart.inFight = false;
