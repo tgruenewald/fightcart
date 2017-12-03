@@ -79,6 +79,7 @@ public class FightCart : MonoBehaviour {
 
 	public void addInventory(string inventoryItemName) {
 		if (inventoryItemName != null){
+			playPickup();
 			inventory.Add(inventoryItemName);
 			foreach(SpriteRenderer c in GetComponentsInChildren<SpriteRenderer>()) {
 				if (c.name.Contains(inventoryItemName) && !c.enabled) {
@@ -166,6 +167,7 @@ public class FightCart : MonoBehaviour {
 
 	public string takeNeededItem(GameObject[] neededItems) {
 		string removeItem = null;
+		playDrop();
 		foreach (GameObject item in neededItems) {
 			// Debug.Log("checking:  " + item.name);
 			removeItem = removeInventory(item.name);
@@ -348,6 +350,23 @@ public void createWishList() {
 
 		}
 	}
+
+	public virtual void playPickup() {
+
+	}
+
+	public  virtual void playDrop() {
+
+	}
+
+	public  virtual void playPunch() {
+
+	}
+
+	public virtual  void playMove() {
+
+	}
+
 
 	void FixedUpdate () {
 		if (iAmEnemy && !followCart && !inFight && !winner && !firstContact) {

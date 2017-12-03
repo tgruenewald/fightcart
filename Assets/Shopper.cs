@@ -26,6 +26,8 @@ public class Shopper : MonoBehaviour {
 		}
 
 		Debug.Log("FIGHT STATUS: " + defender.cart.cartName + ", " + aggressor.cart.cartName + " d: " + defender.health + ", a:" + aggressor.health);
+		defender.cart.playPunch();
+		aggressor.cart.playPunch();
 		// aggressor.GetComponent<SpriteRenderer> ().flipY = true;
 		// defender.GetComponent<SpriteRenderer> ().flipY = false;
 		// if (defender.cart.iAmEnemy)  // TODO: remove later this way I win all fights
