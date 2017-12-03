@@ -23,28 +23,58 @@ public class FightCart : MonoBehaviour {
 
 	public Queue<Transform> itemQueue = new Queue<Transform>();
 
+	public string[] bubble = {"s", "t", "c"};
 	public string[] wantedItem = {"square", "triangle", "circle"};
 	public int wantedItemIndex = 0;
 
 	// Use this for initialization
 	void Start () {
 		// fightTimer = fightCheck();
-		showWantedItem() ;
+		nextWantedItem() ;
 
 		//GameObject.Find(wantedItem[wantedItemIndex]).GetCo//mponent<SpriteRenderer>().enabled = true;
 	}
-	public void showWantedItem() {
+	public void nextWantedItem() {
 		wantedItemIndex = Random.Range(0,3);
-		Debug.Log("wanted item: " + wantedItem[wantedItemIndex]);
+		Debug.Log("wanted item: " + bubble[wantedItemIndex]);
 		foreach(SpriteRenderer c in GetComponentsInChildren<SpriteRenderer>()) {
-			Debug.Log("c = " + c.name);
-			if (c.name == wantedItem[wantedItemIndex]) {
-				Debug.Log("enabling");
+			// Debug.Log("c = " + c.name);
+			if (c.name == bubble[wantedItemIndex]) {
+				// Debug.Log("enabling");
 				c.enabled = true;
 			}
+
 		}
 	}
-	
+	public bool hasExactItem(string neededItem) {
+		foreach(Component c in GetComponentsInChildren<Component>()) {
+			// Debug.Log("hasItem = " + c.name);
+			if (c.name.Equals(neededItem)) {
+				Debug.Log("EXACT MATCH!!!");
+				return true;
+			}
+		}
+		return false;
+	}
+	public bool hasItem(string neededItem) {
+		foreach(Component c in GetComponentsInChildren<Component>()) {
+			// Debug.Log("hasItem = " + c.name);
+			if (c.name.Contains(neededItem)) {
+				Debug.Log("MATCH!!!");
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public void clearLastItem() {
+		foreach(SpriteRenderer c in GetComponentsInChildren<SpriteRenderer>()) {
+			if (c.name == bubble[wantedItemIndex]) {
+				c.enabled = false;
+			}
+
+		}		
+	}
 	// Update is called once per frame
 	void Update () {
 	
@@ -71,7 +101,7 @@ public class FightCart : MonoBehaviour {
 	}
 	IEnumerator coolDownCoRoutine() {
 		coolingDown = true;
-		itemQueue.Clear();
+		// itemQueue.Clear();
 		yield return new WaitForSeconds (3f);
 		coolingDown = false;
 	}
@@ -112,27 +142,24 @@ public class FightCart : MonoBehaviour {
 	IEnumerator cartAggroed() {
 		yield return new WaitForSeconds (0.5f);
 		followCart = true;
-		itemQueue.Clear();
+		// itemQueue.Clear();
 		GetComponent<SpriteRenderer> ().flipY = false;
 	}
 	void OnTriggerEnter2D(Collider2D coll){
 		// Debug.Log("coll.gameObject.tag: " + coll.gameObject.name);
-		if (coll.gameObject.tag == "item") {
+		if (iAmEnemy && coll.gameObject.tag == "item") {
+			Debug.Log(cartName + ":  coll.gameObject.tag: " + coll.gameObject.name);
 			itemQueue.Enqueue(coll.gameObject.transform);
-			if (itemQueue.Count > 0) {
-				targetItem = itemQueue.Dequeue();
-			}	
-			
-
-
 		}
 		if (iAmEnemy && !followCart && targetItem == null && !coolingDown && !inFight) {
 			// move to item
 			Debug.Log("Moving toward item");
-			targetItem = coll.transform;
+			if (itemQueue.Count > 0 && targetItem == null) {
+				targetItem = itemQueue.Dequeue();
+			}				
 		}
 
-		if (iAmEnemy && coll.gameObject.tag == "cart" && !inFight) {
+		if (iAmEnemy && coll.gameObject.tag == "cart" && coll.gameObject.GetComponent<FightCart>().hasItem(wantedItem[wantedItemIndex]) && !inFight) {
 			// StopAllCoroutines();
 			firstContact = true;
 			collidedCart = coll.gameObject;
@@ -147,14 +174,42 @@ public class FightCart : MonoBehaviour {
 
 	void FixedUpdate () {
 		if (iAmEnemy && !followCart && !inFight) {
-			if (targetItem != null) {
+			// if (targetItem != null) Debug.Log("targeetItem = " +  targetItem.name + ", " + targetItem.name.Contains(wantedItem[wantedItemIndex]));
+			if (targetItem != null && !targetItem.name.Contains(wantedItem[wantedItemIndex])) {
+				Debug.Log("Removing item from queue");
+				if (itemQueue.Count > 0) {
+					itemQueue.Enqueue(targetItem); // put this at the end for later
+					targetItem = itemQueue.Dequeue();	
+				}				
+				else {
+					targetItem = null;
+				}
+
+			}
+			if (targetItem != null && targetItem.name.Contains(wantedItem[wantedItemIndex])) {
 				transform.position = Vector3.MoveTowards(transform.position, targetItem.position, speed);			
 				float distance = Vector3.Distance (transform.position, targetItem.position);
-				// Debug.Log("dist to item: " + distance + ", " + cartDistance);
+				Debug.Log("dist to item: " + distance + ", " + cartDistance);
+				// transform.position = Vector3.MoveTowards(transform.position, targetCart.position, speed);			
+				if (hasExactItem(targetItem.name)) {
+					Debug.Log("FOUND ITEM: " + targetItem.name);
+					clearLastItem();
+					nextWantedItem();
+					if (itemQueue.Count > 0) {
+						targetItem = itemQueue.Dequeue();	
+					}
+					else {
+						targetItem = null;
+					}										
+				}
 				if (distance < 0.1f) {
 					if (itemQueue.Count > 0) {
 						targetItem = itemQueue.Dequeue();	
 					}
+					else {
+						targetItem = null;
+					}
+										
 
 				}	
 			}

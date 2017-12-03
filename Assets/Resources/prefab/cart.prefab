@@ -53,7 +53,7 @@ GameObject:
   - component: {fileID: 4289351227709628}
   - component: {fileID: 212594826919763628}
   m_Layer: 0
-  m_Name: triangle
+  m_Name: t
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 4601027597594734}
   - component: {fileID: 212650974831062944}
   m_Layer: 0
-  m_Name: circle
+  m_Name: c
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 4121784045018872}
   - component: {fileID: 212813504826979806}
   m_Layer: 0
-  m_Name: square
+  m_Name: s
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
