@@ -115,6 +115,7 @@ public class FightCart : MonoBehaviour {
 	}
 	IEnumerator coolDownCoRoutine() {
 		coolingDown = true;
+		targetItem = null;
 		// itemQueue.Clear();
 		yield return new WaitForSeconds (3f);
 		coolingDown = false;
@@ -129,7 +130,7 @@ public class FightCart : MonoBehaviour {
 			// part of the fight.  This leaves the question what happens when 3 or more carts 
 			// potentially enter into a fight?  Since only 2 carts can fight at once this 
 			// will need to be resolved by the arbitrator.
-
+			targetItem = null;
 			var referee = GameObject.FindGameObjectWithTag ("referee");
 			referee.GetComponent<Referee> ().start_fight (gameObject, collidedCart);
 
@@ -148,11 +149,19 @@ public class FightCart : MonoBehaviour {
 			foreach( Transform t in trans) {
 				if (t.tag == "item") {
 					Debug.Log("removing item");
+					// t.GetComponent<Rigidbody2D>().isKinematic = false;
 					t.GetComponent<Rigidbody2D>().AddForce(Vector3.up * 5f, ForceMode2D.Impulse);
 				}
 			}
 		}
 	}
+
+
+	IEnumerator packageFlying(Transform t) {
+		yield return new WaitForSeconds (1f);
+		t.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+	}
+
 	IEnumerator cartAggroed() {
 		yield return new WaitForSeconds (0.5f);
 		followCart = true;

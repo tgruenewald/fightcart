@@ -36,6 +36,7 @@ public class Item : MonoBehaviour {
 						// parent the item and stop raycast
 						// hit.collider.gameObject.GetComponent<FixedJoint2D>().connectedBody = GetComponent<Rigidbody2D>();
 						gameObject.transform.parent = hit.collider.gameObject.transform;
+						// GetComponent<Rigidbody2D>().isKinematic = true;
 						isConnected = true;
 					}
 				}

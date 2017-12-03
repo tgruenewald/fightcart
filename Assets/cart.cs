@@ -13,7 +13,7 @@ public class Cart : FightCart {
 		cartName = "mine";
 		speed = .06f;
 		iAmEnemy = false;
-		nextWantedItem() ;
+		// nextWantedItem() ;
 	}
 	
 	// Update is called once per frame
@@ -42,6 +42,11 @@ public class Cart : FightCart {
 					isMousePositionSet = false;
 				}
 			}
+			// if (hasItem(wantedItem[wantedItemIndex])) {
+			// 	clearLastItem();
+			// 	nextWantedItem();
+			// }
+
 		}
 
 
