@@ -11,6 +11,8 @@ public class Cart : FightCart {
 	// Use this for initialization
 	void Start () {
 		cartName = "me"; 
+		hatColor = Color.black;
+		hat.GetComponent<SpriteRenderer>().color = hatColor;
 		speed = .06f;
 		iAmEnemy = false;
 		createWishList();

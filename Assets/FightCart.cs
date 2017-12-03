@@ -35,14 +35,21 @@ public class FightCart : MonoBehaviour {
 	private List<int> uniqueNumbers;
 	private List<int> finishedList;
 
+	public GameObject hat;
+	public GameObject shopper;
+
 	Transform door;
 
 	Vector2 randomDirection;
 
 	Vector2 prevLocation;
 
+	Color[] hatColorList = {Color.white, Color.blue, Color.red, Color.green, Color.yellow};
+	public Color hatColor;
 	// Use this for initialization
 	void Start () {
+		hatColor = hatColorList[Random.Range(0,5)];
+		hat.GetComponent<SpriteRenderer>().color = hatColor;
 	createWishList();
 	createInventory();
 	door = GameObject.Find("door").transform;
