@@ -8,6 +8,8 @@ public class FightCart : MonoBehaviour {
 	bool followCart = false;
 	bool firstContact = false;
 	public float speed = .05f;
+
+	public float slowSpeed = 0.02f;
 	public float cartDistance = 2f;
 
 	public float giveUpDistance = 4f;
@@ -32,10 +34,22 @@ public class FightCart : MonoBehaviour {
 	Vector3[] offsetVector = {new Vector3(.3f,.35f,0), new Vector3(0f,.35f,0), new Vector3(-.3f,.35f,0)};
 	private List<int> uniqueNumbers;
 	private List<int> finishedList;
+
+	Transform door;
+
+	Vector2 randomDirection;
+
 	// Use this for initialization
 	void Start () {
 	createWishList();
 	createInventory();
+	door = GameObject.Find("door").transform;
+	setRandomDirection();
+	StartCoroutine(randomMove());
+	}
+	
+	void setRandomDirection() {
+		randomDirection = new Vector2(Random.Range(-8, 8), Random.Range(-8, 8));		
 	}
 
 	public void updateWishList(string itemName) {
@@ -245,7 +259,16 @@ public void createWishList() {
 		// TODO: randomly select invetory item to lose 
 	}
 
+	IEnumerator randomMove() {
+		yield return new WaitForSeconds (2f);
+		float distance = Vector3.Distance (transform.position, randomDirection);		
+		if (distance < 0.5f) {
+			setRandomDirection();
+		}
 
+
+		StartCoroutine(randomMove());
+	}
 
 	IEnumerator cartAggroed() {
 		yield return new WaitForSeconds (0.5f);
@@ -282,6 +305,13 @@ public void createWishList() {
 	}
 
 	void FixedUpdate () {
+		if (iAmEnemy && !followCart && !inFight && !winner && !firstContact) {
+			transform.position = Vector3.MoveTowards(transform.position, randomDirection, slowSpeed);			
+			
+		}		 
+		if (iAmEnemy && winner) {
+			transform.position = Vector3.MoveTowards(transform.position, door.position, speed);			
+		}
 
 		if (iAmEnemy && followCart && !inFight) {
 			transform.position = Vector3.MoveTowards(transform.position, targetCart.position, speed);			
