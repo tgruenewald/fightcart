@@ -8,6 +8,8 @@ public class Shopper : MonoBehaviour {
 	public int health = 3;
 	Shopper aggressor = null;
 	Shopper defender = null;
+
+	public GameObject hat;
 	IEnumerator fightMatch(Shopper s1, Shopper s2) {
 		yield return new WaitForSeconds (.2f);
 		if (aggressor == null) {
@@ -56,6 +58,10 @@ public class Shopper : MonoBehaviour {
 			s1.cart.GetComponent<Rigidbody2D> ().velocity = -moveAway;
 			Destroy(s1.gameObject);
 			Destroy(s2.gameObject);
+			s1.cart.shopper.GetComponent<SpriteRenderer>().enabled = true;
+			s2.cart.shopper.GetComponent<SpriteRenderer>().enabled = true;
+			s1.cart.hat.GetComponent<SpriteRenderer>().enabled = true;
+			s2.cart.hat.GetComponent<SpriteRenderer>().enabled = true;
 		}
 		else {
 			StartCoroutine (fightMatch (s1,s2));

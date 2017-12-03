@@ -52,6 +52,14 @@ public class Referee : MonoBehaviour {
 			shopper1.GetComponent<Shopper> ().cart = c1;
 			shopper2.GetComponent<Shopper> ().cart = c2;
 
+			// color the hats
+			shopper1.GetComponent<Shopper> ().hat.GetComponent<SpriteRenderer>().color = c1.hatColor;
+			shopper2.GetComponent<Shopper> ().hat.GetComponent<SpriteRenderer>().color = c2.hatColor;
+			c1.shopper.GetComponent<SpriteRenderer>().enabled = false;
+			c2.shopper.GetComponent<SpriteRenderer>().enabled = false;
+			c1.hat.GetComponent<SpriteRenderer>().enabled = false;
+			c2.hat.GetComponent<SpriteRenderer>().enabled = false;
+
 			// the fewer items, the stronger you are			
 			shopper1.GetComponent<Shopper> ().health = 6 - cart1.GetComponent<FightCart>().inventory.Count;
 			shopper2.GetComponent<Shopper> ().health = 6 - cart2.GetComponent<FightCart>().inventory.Count;
