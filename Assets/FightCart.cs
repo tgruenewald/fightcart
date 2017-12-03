@@ -34,6 +34,16 @@ public class FightCart : MonoBehaviour {
 	void Start () {
 	createWishList();
 	}
+
+	public void createInventory() {
+		foreach(var i in finishedList) {
+			uniqueNumbers.Remove(i);
+		}
+
+		foreach(var u in uniqueNumbers) {
+			
+		}
+	}
 public void createWishList() {
 	// randomly generate wish list
 	uniqueNumbers = new List<int>();
