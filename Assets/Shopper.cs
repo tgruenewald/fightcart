@@ -25,13 +25,13 @@ public class Shopper : MonoBehaviour {
 
 		aggressor.GetComponent<SpriteRenderer> ().flipY = true;
 		defender.GetComponent<SpriteRenderer> ().flipY = false;
-		if (defender.cart.iAmEnemy)  // TODO: remove later this way I win all fights
+		// if (defender.cart.iAmEnemy)  // TODO: remove later this way I win all fights
 			defender.health--;
-		if (defender.health <= 0 || aggressor.health <= 0) {
+		if (defender.health <= 0 || aggressor.health <= 0) { 
 			// fight over
-			Debug.Log("fight over: " + s1.cart.cartName + ", " + s2.cart.cartName + " d: " + defender.health + ", a:" + aggressor.health);
+			Debug.Log("fight over: " + defender.cart.cartName + ", " + aggressor.cart.cartName + " d: " + defender.health + ", a:" + aggressor.health);
 
-			if (defender.health <= 0) {
+			if (defender.health > 0) {
 				Debug.Log("Defender wins: " + defender.cart.cartName);
 				var item = defender.cart.takeNeededItem(aggressor.cart.wishList);
 				Debug.Log("Taking item: " + item);

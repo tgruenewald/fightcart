@@ -53,18 +53,12 @@ public class FightCart : MonoBehaviour {
 			inventory.Add(inventoryItemName);
 			foreach(SpriteRenderer c in GetComponentsInChildren<SpriteRenderer>()) {
 				if (c.name.Contains(inventoryItemName) && !c.enabled) {
-					Debug.Log("c.name.Contains(inventoryItemName) = " + c.name + " contains " + inventoryItemName);
+					// Debug.Log("c.name.Contains(inventoryItemName) = " + c.name + " contains " + inventoryItemName);
 					c.enabled = true;
 					break;
 				} 
 			}
-			foreach (GameObject go in wishList) {
-				Debug.Log("go.name=" + go.name);
-				if (go.name.Contains(inventoryItemName)) {
-					Debug.Log("inventoryItemName.Contains(go.name) = " + inventoryItemName + " contains " + go.name);
-					go.GetComponent<SpriteRenderer>().color = Color.red;
-				}
-			}				
+			redrawWishlist();		
 		}
 
 	}
@@ -72,7 +66,7 @@ public class FightCart : MonoBehaviour {
 		string removeItem = null;
 			foreach (string inventoryItemName in inventory) {
 				if (itemName.Contains(inventoryItemName)) {
-					Debug.Log("aitemName.Contains(inventoryItemName) = " + itemName + " contains " + inventoryItemName);
+					// Debug.Log("aitemName.Contains(inventoryItemName) = " + itemName + " contains " + inventoryItemName);
 					removeItem = inventoryItemName;
 					foreach(SpriteRenderer c in GetComponentsInChildren<SpriteRenderer>()) {
 						if (c.name.Contains(inventoryItemName) && c.enabled) {
@@ -86,17 +80,33 @@ public class FightCart : MonoBehaviour {
 			// Debug.Log("1 removeItems is " + removeItem); 
 			if (removeItem != null) {
 				inventory.Remove(removeItem);
-				foreach (GameObject go in wishList) {
-					if (go.name.Contains(removeItem)) {
-						Debug.Log("REMOVE aremoveItem.Contains(go.name) = " + removeItem + " contains " + go.name);
-						go.GetComponent<SpriteRenderer>().color = Color.white;
-					}
-				}					
+		
 			}
+			redrawWishlist();
 			// Debug.Log("2 removeItems is " + removeItem);
 			return removeItem;
 				
 	
+	}
+
+	public bool isInInventory(string itemName) {
+		foreach (string inventoryItemName in inventory) {
+			if (itemName.Contains(inventoryItemName)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public void redrawWishlist() {
+		foreach (GameObject go in wishList) {
+			if (isInInventory(go.name)) {
+				go.GetComponent<SpriteRenderer>().color = Color.red;
+			}
+			else {
+				go.GetComponent<SpriteRenderer>().color = Color.white;
+			}
+		}
 	}
 
 	public string takeNeededItem(GameObject[] neededItems) {
@@ -171,7 +181,7 @@ public void createWishList() {
 
     IEnumerator postFightTimer() {
         yield return new WaitForSeconds (1f);
-        Debug.Log("Stopping cart " + cartName);
+        // Debug.Log("Stopping cart " + cartName);
         GetComponent<Rigidbody2D> ().velocity = Vector3.zero;
         // StartCoroutine(normalShoppingTimer());
     }
@@ -239,7 +249,7 @@ public void createWishList() {
 		}
 		if (iAmEnemy && !followCart && targetItem == null && !coolingDown && !inFight) {
 			// move to item
-			Debug.Log("Moving toward item");
+			// Debug.Log("Moving toward item");
 			if (itemQueue.Count > 0 && targetItem == null) {
 				targetItem = itemQueue.Dequeue();
 			}				
