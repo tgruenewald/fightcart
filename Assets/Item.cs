@@ -23,7 +23,7 @@ public class Item : MonoBehaviour {
 		if (!isConnected) {
 			RaycastHit2D hit = Physics2D.Raycast(transform.position, -Vector2.up);
 			if (hit.collider != null) {
-					// Debug.Log("hit ray: "+ hit.collider.gameObject.name);
+					Debug.Log("hit ray: "+ hit.collider.gameObject.name);
 					if (hit.collider.gameObject.tag == "cart") {
 						// Debug.Log("move to cart");
 					transform.position = Vector3.MoveTowards(transform.position,hit.collider.gameObject.transform.position, speed);			

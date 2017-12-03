@@ -172,7 +172,7 @@ public class FightCart : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D coll){
 		// Debug.Log("coll.gameObject.tag: " + coll.gameObject.name);
 		if (iAmEnemy && coll.gameObject.tag == "item") {
-			Debug.Log(cartName + ":  coll.gameObject.tag: " + coll.gameObject.name);
+			// Debug.Log(cartName + ":  coll.gameObject.tag: " + coll.gameObject.name);
 			itemQueue.Enqueue(coll.gameObject.transform);
 		}
 		if (iAmEnemy && !followCart && targetItem == null && !coolingDown && !inFight) {

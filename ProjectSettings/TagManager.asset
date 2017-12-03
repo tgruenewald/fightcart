@@ -9,6 +9,7 @@ TagManager:
   - wall
   - blue_square
   - item
+  - cart_bottom
   layers:
   - Default
   - TransparentFX
