@@ -18,6 +18,9 @@ public class Item : MonoBehaviour {
 				Debug.Log("bye bye");
 				gameObject.transform.parent = null;
 				isConnected = false;
+				GetComponent<SpriteRenderer>().color = Color.white;
+				// GetComponent<Rigidbody2D>().gravityScale = 0f;
+
 			}
 		}
 		if (!isConnected) {
@@ -36,7 +39,9 @@ public class Item : MonoBehaviour {
 						// parent the item and stop raycast
 						// hit.collider.gameObject.GetComponent<FixedJoint2D>().connectedBody = GetComponent<Rigidbody2D>();
 						gameObject.transform.parent = hit.collider.gameObject.transform;
-						// GetComponent<Rigidbody2D>().isKinematic = true;
+						GetComponent<SpriteRenderer>().color = Color.red;
+
+						// GetComponent<Rigidbody2D>().gravityScale = 1f;
 						isConnected = true;
 					}
 				}

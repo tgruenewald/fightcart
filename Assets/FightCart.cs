@@ -30,7 +30,8 @@ public class FightCart : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		// fightTimer = fightCheck();
-		nextWantedItem() ;
+		// nextWantedItem() ;
+		selectWantedItem();
 
 		//GameObject.Find(wantedItem[wantedItemIndex]).GetCo//mponent<SpriteRenderer>().enabled = true;
 	}
@@ -46,9 +47,7 @@ public class FightCart : MonoBehaviour {
 		}
 		return null;
 	}
-
-	public void nextWantedItem() {
-		wantedItemIndex = Random.Range(0,3);
+	public void selectWantedItem() {
 		Debug.Log("wanted item: " + bubble[wantedItemIndex]);
 		foreach(SpriteRenderer c in GetComponentsInChildren<SpriteRenderer>()) {
 			// Debug.Log("c = " + c.name);
@@ -59,6 +58,11 @@ public class FightCart : MonoBehaviour {
 			}
 
 		}
+	}
+	public void nextWantedItem() {
+		wantedItemIndex = Random.Range(0,3);
+		Debug.Log("wanted item: " + bubble[wantedItemIndex]);
+		selectWantedItem();
 	}
 	public bool hasExactItem(string neededItem) {
 		foreach(Component c in GetComponentsInChildren<Component>()) {
@@ -150,7 +154,7 @@ public class FightCart : MonoBehaviour {
 				if (t.tag == "item") {
 					Debug.Log("removing item");
 					// t.GetComponent<Rigidbody2D>().isKinematic = false;
-					t.GetComponent<Rigidbody2D>().AddForce(Vector3.up * 5f, ForceMode2D.Impulse);
+					t.GetComponent<Rigidbody2D>().AddForce(Vector3.up * 30f, ForceMode2D.Impulse);
 					break;
 				}
 			}
@@ -202,7 +206,7 @@ public class FightCart : MonoBehaviour {
 		if (iAmEnemy && !followCart && !inFight) {
 			// if (targetItem != null) Debug.Log("targeetItem = " +  targetItem.name + ", " + targetItem.name.Contains(wantedItem[wantedItemIndex]));
 			if (targetItem != null && !targetItem.name.Contains(wantedItem[wantedItemIndex])) {
-				Debug.Log("Removing item from queue");
+				// Debug.Log("Removing item from queue");
 				if (itemQueue.Count > 0) {
 					itemQueue.Enqueue(targetItem); // put this at the end for later
 					targetItem = itemQueue.Dequeue();	
