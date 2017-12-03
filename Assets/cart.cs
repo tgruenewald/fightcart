@@ -50,6 +50,7 @@ public class Cart : FightCart {
 		if (!inFight) {
 			if (Input.GetMouseButtonDown (0)) {
 				playMove();
+
 				//targetPosition = Input.mousePosition;
 				targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 				targetPosition.z = transform.position.z; // so it stays on the same z axis

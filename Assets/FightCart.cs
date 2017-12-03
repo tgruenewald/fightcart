@@ -10,6 +10,8 @@ public class FightCart : MonoBehaviour {
 	public float speed = .05f;
 
 	public float slowSpeed = 0.02f;
+
+	public float superSlowSpeed = 0.005f;
 	public float cartDistance = 2f;
 
 	public float giveUpDistance = 4f;
@@ -142,8 +144,16 @@ public class FightCart : MonoBehaviour {
 		if (count == 3) {
 			// winner
 			winner = true;
+			Camera.main.gameObject.GetComponent<AudioSource>().clip = Resources.Load<AudioClip>("Music/chase" );
+			Camera.main.gameObject.GetComponent<AudioSource>().Play();
+			Camera.main.orthographicSize = 10f;
 		}
 		else {
+			if (winner) {
+				Camera.main.gameObject.GetComponent<AudioSource>().clip = Resources.Load<AudioClip>("Music/background_music" );
+				Camera.main.gameObject.GetComponent<AudioSource>().Play();				
+				Camera.main.orthographicSize = 5f;
+			}
 			winner = false;
 		}
 
@@ -375,7 +385,7 @@ public void createWishList() {
 			
 		}		 
 		if (iAmEnemy && winner) {
-			transform.position = Vector3.MoveTowards(transform.position, door.position, speed);			
+			transform.position = Vector3.MoveTowards(transform.position, door.position, superSlowSpeed);			
 		}
 
 		if (iAmEnemy && followCart && !inFight) {
