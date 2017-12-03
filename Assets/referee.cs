@@ -59,6 +59,8 @@ public class Referee : MonoBehaviour {
 			c2.shopper.GetComponent<SpriteRenderer>().enabled = false;
 			c1.hat.GetComponent<SpriteRenderer>().enabled = false;
 			c2.hat.GetComponent<SpriteRenderer>().enabled = false;
+			shopper1.transform.localScale = c1.shopper.transform.localScale;
+			shopper2.transform.localScale = c2.shopper.transform.localScale;
 
 			// the fewer items, the stronger you are			
 			shopper1.GetComponent<Shopper> ().health = 6 - cart1.GetComponent<FightCart>().inventory.Count;

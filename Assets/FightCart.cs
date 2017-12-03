@@ -46,10 +46,13 @@ public class FightCart : MonoBehaviour {
 
 	Color[] hatColorList = {Color.white, Color.blue, Color.red, Color.green, Color.yellow};
 	public Color hatColor;
+
+	public Vector3 origSize;
 	// Use this for initialization
 	void Start () {
 		hatColor = hatColorList[Random.Range(0,5)];
 		hat.GetComponent<SpriteRenderer>().color = hatColor;
+		origSize = shopper.transform.localScale;
 	createWishList();
 	createInventory();
 	door = GameObject.Find("door").transform;
@@ -142,6 +145,23 @@ public class FightCart : MonoBehaviour {
 		else {
 			winner = false;
 		}
+
+		// make shopper smaller or bigger
+		int itemCount = inventory.Count;
+
+		if (itemCount < 2) {
+			shopper.transform.localScale = origSize * 1.3f;
+		} else if (itemCount == 2) {
+			shopper.transform.localScale = origSize;
+		} else if (itemCount >= 2 && itemCount < 4) {
+			shopper.transform.localScale = origSize * 0.7f;
+		} else if (itemCount >= 4 && itemCount < 10) {
+			shopper.transform.localScale = origSize * 0.2f;
+		} 
+
+
+
+		
 	}
 
 	public string takeNeededItem(GameObject[] neededItems) {

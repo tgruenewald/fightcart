@@ -12,6 +12,7 @@ public class Cart : FightCart {
 	void Start () {
 		cartName = "me"; 
 		hatColor = Color.black;
+		origSize = shopper.transform.localScale;
 		hat.GetComponent<SpriteRenderer>().color = hatColor;
 		speed = .06f;
 		iAmEnemy = false;
