@@ -8,7 +8,7 @@ public class Item : MonoBehaviour {
 	public bool isConnected = false;
 	// Use this for initialization
 	void Start () {
-		StartCoroutine(howFarAwayFromParent());
+		// StartCoroutine(howFarAwayFromParent());
 	}
 	IEnumerator howFarAwayFromParent() {
 		yield return new WaitForSeconds (0.1f);
