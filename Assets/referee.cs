@@ -8,6 +8,12 @@ public class Referee : MonoBehaviour {
 
 		FightCart c1 = cart1.GetComponent<FightCart> ();			
 		FightCart c2 = cart2.GetComponent<FightCart> ();
+		if (c1 == null) {
+			Debug.Log(cart1.name + "is null");
+		}
+		if (c2 == null) {
+			Debug.Log(cart2.name + "is null");
+		}		
 		if (!c1.coolingDown && !c2.coolingDown && !c1.inFight && !c2.inFight) {
 			Debug.Log ("Starting fight");
 			c1.inFight = true;
@@ -45,8 +51,8 @@ public class Referee : MonoBehaviour {
 			shopper2.GetComponent<SpriteRenderer> ().flipX = true;
 			shopper1.GetComponent<Shopper> ().cart = c1;
 			shopper2.GetComponent<Shopper> ().cart = c2;
-			shopper1.GetComponent<Shopper> ().health = Random.Range(0, 3);
-			shopper2.GetComponent<Shopper> ().health = Random.Range(0, 3);
+			shopper1.GetComponent<Shopper> ().health = Random.Range(1, 3);
+			shopper2.GetComponent<Shopper> ().health = Random.Range(1, 3);
 			shopper1.GetComponent<Shopper> ().fight (shopper2.GetComponent<Shopper> ());
 		}
 

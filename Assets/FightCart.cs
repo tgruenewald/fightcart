@@ -52,7 +52,7 @@ public class FightCart : MonoBehaviour {
 		if (inventoryItemName != null){
 			inventory.Add(inventoryItemName);
 			foreach(SpriteRenderer c in GetComponentsInChildren<SpriteRenderer>()) {
-				if (c.name.Contains(inventoryItemName)) {
+				if (c.name.Contains(inventoryItemName) && !c.enabled) {
 					Debug.Log("c.name.Contains(inventoryItemName) = " + c.name + " contains " + inventoryItemName);
 					c.enabled = true;
 					break;
@@ -75,7 +75,7 @@ public class FightCart : MonoBehaviour {
 					Debug.Log("aitemName.Contains(inventoryItemName) = " + itemName + " contains " + inventoryItemName);
 					removeItem = inventoryItemName;
 					foreach(SpriteRenderer c in GetComponentsInChildren<SpriteRenderer>()) {
-						if (c.name.Contains(inventoryItemName)) {
+						if (c.name.Contains(inventoryItemName) && c.enabled) {
 							c.enabled = false;
 							break;
 						}
@@ -245,7 +245,8 @@ public void createWishList() {
 			}				
 		}
 
-		if (iAmEnemy && coll.gameObject.tag == "cart" &&  coll.gameObject.GetComponent<FightCart>().hasNeededItem(wishList) && !inFight ) {
+
+		if ( (coll.gameObject.tag == "cart" &&  coll.gameObject.GetComponent<FightCart>().hasNeededItem(wishList) && !inFight )) {
 			// StopAllCoroutines();
 			firstContact = true;
 			collidedCart = coll.gameObject;
@@ -261,7 +262,7 @@ public void createWishList() {
 
 	void FixedUpdate () {
 
-		if (iAmEnemy && followCart) {
+		if (iAmEnemy && followCart && !inFight) {
 			transform.position = Vector3.MoveTowards(transform.position, targetCart.position, speed);			
 			float distance = Vector3.Distance (transform.position, targetCart.position);
 			// Debug.Log("dist: " + distance + ", " + cartDistance);
