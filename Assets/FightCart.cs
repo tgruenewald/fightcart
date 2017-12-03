@@ -34,6 +34,19 @@ public class FightCart : MonoBehaviour {
 
 		//GameObject.Find(wantedItem[wantedItemIndex]).GetCo//mponent<SpriteRenderer>().enabled = true;
 	}
+
+
+	public SpriteRenderer getBubble() {
+		foreach(SpriteRenderer c in GetComponentsInChildren<SpriteRenderer>()) {
+			// Debug.Log("c = " + c.name);
+			if (c.name == bubble[wantedItemIndex]) {
+				Debug.Log("found bubble: " + c.name);
+				return c;
+			}
+		}
+		return null;
+	}
+
 	public void nextWantedItem() {
 		wantedItemIndex = Random.Range(0,3);
 		Debug.Log("wanted item: " + bubble[wantedItemIndex]);
@@ -42,6 +55,7 @@ public class FightCart : MonoBehaviour {
 			if (c.name == bubble[wantedItemIndex]) {
 				// Debug.Log("enabling");
 				c.enabled = true;
+				//c.color = Color.red; //material.SetColor ("_Color", Color.red);
 			}
 
 		}
@@ -143,7 +157,8 @@ public class FightCart : MonoBehaviour {
 		yield return new WaitForSeconds (0.5f);
 		followCart = true;
 		// itemQueue.Clear();
-		GetComponent<SpriteRenderer> ().flipY = false;
+		getBubble().color =  Color.white;
+		// GetComponent<SpriteRenderer> ().flipY = false;
 	}
 	void OnTriggerEnter2D(Collider2D coll){
 		// Debug.Log("coll.gameObject.tag: " + coll.gameObject.name);
@@ -164,8 +179,9 @@ public class FightCart : MonoBehaviour {
 			firstContact = true;
 			collidedCart = coll.gameObject;
 			Debug.Log ("Cart("+cartName+") is aggroed by " + collidedCart.GetComponent<FightCart>().cartName);
-			GetComponent<SpriteRenderer> ().material.SetColor ("_Color", Color.red);
-			GetComponent<SpriteRenderer> ().flipY = true;
+			getBubble().color =  Color.red;
+			// GetComponent<SpriteRenderer> ().material.SetColor ("_Color", Color.red);
+			// GetComponent<SpriteRenderer> ().flipY = true;
 			StartCoroutine (cartAggroed ());
 			targetCart = coll.transform;
 			StartCoroutine (fightCheck ());
@@ -189,7 +205,7 @@ public class FightCart : MonoBehaviour {
 			if (targetItem != null && targetItem.name.Contains(wantedItem[wantedItemIndex])) {
 				transform.position = Vector3.MoveTowards(transform.position, targetItem.position, speed);			
 				float distance = Vector3.Distance (transform.position, targetItem.position);
-				Debug.Log("dist to item: " + distance + ", " + cartDistance);
+				// Debug.Log("dist to item: " + distance + ", " + cartDistance);
 				// transform.position = Vector3.MoveTowards(transform.position, targetCart.position, speed);			
 				if (hasExactItem(targetItem.name)) {
 					Debug.Log("FOUND ITEM: " + targetItem.name);
