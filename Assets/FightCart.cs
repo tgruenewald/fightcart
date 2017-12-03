@@ -36,6 +36,16 @@ public class FightCart : MonoBehaviour {
 	createInventory();
 	}
 
+	public void updateWishList(string itemName) {
+		if (itemName != null){
+			foreach (GameObject go in wishList) {
+				if (itemName.Contains(go.name)) {
+					go.GetComponent<SpriteRenderer>().color = Color.white;
+				}
+			}
+		}
+	}
+
 	public string takeNeededItem(GameObject[] neededItems) {
 		string removeItem = null;
 		foreach (GameObject item in neededItems) {
@@ -48,7 +58,8 @@ public class FightCart : MonoBehaviour {
 							c.enabled = false;
 							break;
 						}
-					}						
+					}
+					Debug.Log("coloring item red:  " + item.name);					
 					item.GetComponent<SpriteRenderer>().color = Color.red;
 					break;
 				}
@@ -57,7 +68,20 @@ public class FightCart : MonoBehaviour {
 				inventory.Remove(removeItem);
 				break;
 			}
-		}		
+
+			// if there were no items, then just take one
+			if (inventory.Count > 0) {
+				removeItem = (string) inventory[0];
+				inventory.RemoveAt(0);
+				foreach(SpriteRenderer c in GetComponentsInChildren<SpriteRenderer>()) {
+					if (c.name.Contains(removeItem)) {
+						c.enabled = false;
+						break;
+					}
+				}						
+			}
+		}	
+		updateWishList(removeItem);	
 		return removeItem;
 	}
 	public bool hasNeededItem(GameObject[] neededItems) {
