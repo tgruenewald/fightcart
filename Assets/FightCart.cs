@@ -21,6 +21,8 @@ public class FightCart : MonoBehaviour {
 
 	private IEnumerator fightTimer;
 
+	public bool winner = false;
+
 	public Queue<Transform> itemQueue = new Queue<Transform>();
 
 	public string[] itemList2 = {"blue_circle", "blue_square", "blue_triangle", "cross", "doll"};
@@ -99,13 +101,22 @@ public class FightCart : MonoBehaviour {
 	}
 
 	public void redrawWishlist() {
+		int count = 0;
 		foreach (GameObject go in wishList) {
 			if (isInInventory(go.name)) {
 				go.GetComponent<SpriteRenderer>().color = Color.red;
+				count++;
 			}
 			else {
 				go.GetComponent<SpriteRenderer>().color = Color.white;
 			}
+		}
+		if (count == 3) {
+			// winner
+			winner = true;
+		}
+		else {
+			winner = false;
 		}
 	}
 
