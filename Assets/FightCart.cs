@@ -150,13 +150,13 @@ public class FightCart : MonoBehaviour {
 		int itemCount = inventory.Count;
 
 		if (itemCount < 2) {
-			shopper.transform.localScale = origSize * 1.3f;
+			shopper.transform.localScale = origSize * 1.2f;
 		} else if (itemCount == 2) {
 			shopper.transform.localScale = origSize;
 		} else if (itemCount >= 2 && itemCount < 4) {
-			shopper.transform.localScale = origSize * 0.7f;
+			shopper.transform.localScale = origSize * 0.8f;
 		} else if (itemCount >= 4 && itemCount < 10) {
-			shopper.transform.localScale = origSize * 0.2f;
+			shopper.transform.localScale = origSize * 0.5f;
 		} 
 
 
@@ -273,6 +273,7 @@ public void createWishList() {
 			// will need to be resolved by the arbitrator.
 			targetItem = null;
 			var referee = GameObject.FindGameObjectWithTag ("referee");
+			shopper.GetComponent<Animator>().SetBool("isAggro", false);
 			referee.GetComponent<Referee> ().start_fight (gameObject, collidedCart);
 
 			Debug.Log ("Fight!!");
@@ -308,6 +309,7 @@ public void createWishList() {
 
 	IEnumerator cartAggroed() {
 		yield return new WaitForSeconds (0.5f);
+		// shopper.GetComponent<Animator>().SetBool("isAggro", false);
 		followCart = true;
 
 	}
@@ -338,6 +340,7 @@ public void createWishList() {
 				
 				// GetComponent<SpriteRenderer> ().material.SetColor ("_Color", Color.red);
 				// GetComponent<SpriteRenderer> ().flipY = true;
+				shopper.GetComponent<Animator>().SetBool("isAggro", true);
 				StartCoroutine (cartAggroed ());
 				targetCart = coll.transform;
 				StartCoroutine (fightCheck ());
@@ -349,6 +352,7 @@ public void createWishList() {
 	void FixedUpdate () {
 		if (iAmEnemy && !followCart && !inFight && !winner && !firstContact) {
 			transform.position = Vector3.MoveTowards(transform.position, randomDirection, slowSpeed);			
+			shopper.GetComponent<Animator>().SetBool("isAggro", false);
 			
 		}		 
 		if (iAmEnemy && winner) {
@@ -370,6 +374,7 @@ public void createWishList() {
 				// too far, give up
 				Debug.Log("too far, give up: " + distance + ", " + giveUpDistance);
 				followCart = false;
+				shopper.GetComponent<Animator>().SetBool("isAggro", false);
 			}
 		}	
 

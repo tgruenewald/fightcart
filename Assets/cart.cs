@@ -38,6 +38,7 @@ public class Cart : FightCart {
 				GetComponent<Rigidbody2D> ().velocity = Vector3.zero;
 			}
 			if (isMousePositionSet) {
+				shopper.GetComponent<Animator>().SetBool("isAggro", false);
 				transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed);			
 	//			Rigidbody2D rb = GetComponent<Rigidbody2D> ();
 	//			rb.velocity = Vector3.Normalize (targetPosition - transform.position) * speed;

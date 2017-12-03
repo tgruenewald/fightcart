@@ -57,6 +57,8 @@ public class Referee : MonoBehaviour {
 			shopper2.GetComponent<Shopper> ().hat.GetComponent<SpriteRenderer>().color = c2.hatColor;
 			c1.shopper.GetComponent<SpriteRenderer>().enabled = false;
 			c2.shopper.GetComponent<SpriteRenderer>().enabled = false;
+			c1.shopper.GetComponent<Animator>().SetBool("isAggro", false);
+			c2.shopper.GetComponent<Animator>().SetBool("isAggro", false);
 			c1.hat.GetComponent<SpriteRenderer>().enabled = false;
 			c2.hat.GetComponent<SpriteRenderer>().enabled = false;
 			shopper1.transform.localScale = c1.shopper.transform.localScale;

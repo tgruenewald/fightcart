@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Door : MonoBehaviour {
 
@@ -20,9 +21,10 @@ public class Door : MonoBehaviour {
 				Debug.Log("GAME OVER");
 				if (coll.gameObject.GetComponent<FightCart>().iAmEnemy) {
 					Debug.Log("YOU LOSE");
+					SceneManager.LoadScene("losescene");
 				}
 				else {
-					Debug.Log("YOU WIN");
+					SceneManager.LoadScene("winscene");
 				}
 			}
 		}
