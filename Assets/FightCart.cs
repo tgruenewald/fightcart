@@ -151,6 +151,7 @@ public class FightCart : MonoBehaviour {
 					Debug.Log("removing item");
 					// t.GetComponent<Rigidbody2D>().isKinematic = false;
 					t.GetComponent<Rigidbody2D>().AddForce(Vector3.up * 5f, ForceMode2D.Impulse);
+					break;
 				}
 			}
 		}

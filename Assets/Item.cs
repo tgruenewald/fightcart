@@ -11,7 +11,7 @@ public class Item : MonoBehaviour {
 		StartCoroutine(howFarAwayFromParent());
 	}
 	IEnumerator howFarAwayFromParent() {
-		yield return new WaitForSeconds (0.2f);
+		yield return new WaitForSeconds (0.1f);
 		if (gameObject.transform.parent != null) {
 			float distance = Vector3.Distance (transform.position, gameObject.transform.parent.position);
 			if (distance > 1f) {
