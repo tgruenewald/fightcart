@@ -301,15 +301,21 @@ public void createWishList() {
 
 		if ( (coll.gameObject.tag == "cart" &&  coll.gameObject.GetComponent<FightCart>().hasNeededItem(wishList) && !inFight )) {
 			// StopAllCoroutines();
-			firstContact = true;
-			collidedCart = coll.gameObject;
-			// Debug.Log ("Cart("+cartName+") is aggroed by " + collidedCart.GetComponent<FightCart>().cartName);
-			
-			// GetComponent<SpriteRenderer> ().material.SetColor ("_Color", Color.red);
-			// GetComponent<SpriteRenderer> ().flipY = true;
-			StartCoroutine (cartAggroed ());
-			targetCart = coll.transform;
-			StartCoroutine (fightCheck ());
+			if (iAmEnemy &&  ( coll.gameObject.GetComponent<FightCart>().winner || winner)) {
+				// dont chase winners
+			}
+			else {
+				firstContact = true;
+				collidedCart = coll.gameObject;
+				// Debug.Log ("Cart("+cartName+") is aggroed by " + collidedCart.GetComponent<FightCart>().cartName);
+				
+				// GetComponent<SpriteRenderer> ().material.SetColor ("_Color", Color.red);
+				// GetComponent<SpriteRenderer> ().flipY = true;
+				StartCoroutine (cartAggroed ());
+				targetCart = coll.transform;
+				StartCoroutine (fightCheck ());
+			}
+
 		}
 	}
 
