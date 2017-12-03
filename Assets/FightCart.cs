@@ -8,7 +8,7 @@ public class FightCart : MonoBehaviour {
 	bool followCart = false;
 	bool firstContact = false;
 	public float speed = .05f;
-	public float cartDistance = .5f;
+	public float cartDistance = 2f;
 
 	public float giveUpDistance = 4f;
 	public string cartName = "other";
@@ -33,16 +33,62 @@ public class FightCart : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 	createWishList();
+	createInventory();
 	}
 
+	public string takeNeededItem(GameObject[] neededItems) {
+		string removeItem = null;
+		foreach (GameObject item in neededItems) {
+			// Debug.Log("checking:  " + item.name);
+			foreach (string inv in inventory) {
+				if (item.name.Contains(inv)) {
+					removeItem = inv;
+					foreach(SpriteRenderer c in GetComponentsInChildren<SpriteRenderer>()) {
+						if (c.name.Contains(inv)) {
+							c.enabled = false;
+							break;
+						}
+					}						
+					item.GetComponent<SpriteRenderer>().color = Color.red;
+					break;
+				}
+			}
+			if (removeItem != null) {
+				inventory.Remove(removeItem);
+				break;
+			}
+		}		
+		return removeItem;
+	}
+	public bool hasNeededItem(GameObject[] neededItems) {
+		foreach (GameObject item in neededItems) {
+			// Debug.Log("checking:  " + item.name);
+			foreach (string inv in inventory) {
+				if (item.name.Contains(inv)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 	public void createInventory() {
-		foreach(var i in finishedList) {
-			uniqueNumbers.Remove(i);
+		for( int i = 3; i < 5; i++) {
+			addInventory(itemList2[finishedList[i]]);	
+		}
+		
+	}
+
+	public void addInventory(string inv) {
+		if (inv != null){
+			inventory.Add(inv);
+			foreach(SpriteRenderer c in GetComponentsInChildren<SpriteRenderer>()) {
+				if (c.name.Contains(inv)) {
+					c.enabled = true;
+					break;
+				}
+			}	
 		}
 
-		foreach(var u in uniqueNumbers) {
-			
-		}
 	}
 public void createWishList() {
 	// randomly generate wish list
@@ -102,6 +148,7 @@ public void createWishList() {
 		Debug.Log("Starting fight check");
 		yield return new WaitForSeconds (2f);
 		float distance = Vector3.Distance (transform.position, targetCart.position);
+		// Debug.Log("distance: " + distance + " , " + cartDistance);
 		if (distance < cartDistance && !inFight) {
 			// At this point i need to contact another game object that will start the fight.
 			// To do this, each cart will need its id checked to make sure that it isn't already 
@@ -147,7 +194,7 @@ public void createWishList() {
 			}				
 		}
 
-		if (iAmEnemy && coll.gameObject.tag == "cart" && !inFight) {
+		if (iAmEnemy && coll.gameObject.tag == "cart" &&  coll.gameObject.GetComponent<FightCart>().hasNeededItem(wishList) && !inFight ) {
 			// StopAllCoroutines();
 			firstContact = true;
 			collidedCart = coll.gameObject;

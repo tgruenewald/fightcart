@@ -14,6 +14,7 @@ public class Cart : FightCart {
 		speed = .06f;
 		iAmEnemy = false;
 		createWishList();
+		createInventory();
 		// nextWantedItem() ;
 	}
 	

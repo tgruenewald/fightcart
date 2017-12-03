@@ -31,10 +31,12 @@ public class Shopper : MonoBehaviour {
 			Debug.Log("fight over: " + s1.cart.cartName + ", " + s2.cart.cartName + " d: " + defender.health + ", a:" + aggressor.health);
 
 			if (defender.health <= 0) {
-				defender.cart.loseItem();
+				var item = defender.cart.takeNeededItem(aggressor.cart.wishList);
+				aggressor.cart.addInventory(item);
 			}
 			else {
-				aggressor.cart.loseItem();
+				var item = aggressor.cart.takeNeededItem(defender.cart.wishList);
+				defender.cart.addInventory(item);
 			}
 			s1.cart.inFight = false;
 			s2.cart.inFight = false;

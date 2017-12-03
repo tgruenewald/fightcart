@@ -789,6 +789,12 @@ MonoBehaviour:
   coolingDown: 0
   inFight: 0
   iAmEnemy: 1
+  itemList2:
+  - blue_circle
+  - blue_square
+  - blue_triangle
+  - cross
+  - doll
   wishList:
   - {fileID: 0}
   - {fileID: 0}

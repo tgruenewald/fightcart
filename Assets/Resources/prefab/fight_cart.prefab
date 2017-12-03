@@ -681,7 +681,7 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1.877661
+  m_Radius: 3.1631513
 --- !u!60 &60415558360845856
 PolygonCollider2D:
   m_ObjectHideFlags: 1
@@ -783,12 +783,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.05
-  cartDistance: 0.5
+  cartDistance: 2
   giveUpDistance: 4
   cartName: other
   coolingDown: 0
   inFight: 0
   iAmEnemy: 1
+  itemList2:
+  - blue_circle
+  - blue_square
+  - blue_triangle
+  - cross
+  - doll
   wishList:
   - {fileID: 0}
   - {fileID: 0}
