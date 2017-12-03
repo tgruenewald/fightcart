@@ -130,6 +130,11 @@ public class FightCart : MonoBehaviour {
 		return false;
 	}
 
+	IEnumerator restoreCamera(){
+		yield return new WaitForSeconds (3f);
+		Camera.main.orthographicSize = 5f;
+	}
+
 	public void redrawWishlist() {
 		int count = 0;
 		foreach (GameObject go in wishList) {
@@ -147,6 +152,7 @@ public class FightCart : MonoBehaviour {
 			Camera.main.gameObject.GetComponent<AudioSource>().clip = Resources.Load<AudioClip>("Music/chase" );
 			Camera.main.gameObject.GetComponent<AudioSource>().Play();
 			Camera.main.orthographicSize = 10f;
+			StartCoroutine(restoreCamera());
 		}
 		else {
 			if (winner) {
@@ -180,10 +186,13 @@ public class FightCart : MonoBehaviour {
 		playDrop();
 		foreach (GameObject item in neededItems) {
 			// Debug.Log("checking:  " + item.name);
-			removeItem = removeInventory(item.name);
-			if (removeItem != null) {
-				break;
+			if (item.GetComponent<SpriteRenderer>().color != Color.red) {
+				removeItem = removeInventory(item.name);
+				if (removeItem != null) {
+					break;
+				}
 			}
+
 
 
 		}	
