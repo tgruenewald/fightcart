@@ -10,7 +10,7 @@ public class Cart : FightCart {
 
 	// Use this for initialization
 	void Start () {
-		cartName = "mine";
+		cartName = "me"; 
 		speed = .06f;
 		iAmEnemy = false;
 		createWishList();

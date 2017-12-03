@@ -46,49 +46,88 @@ public class FightCart : MonoBehaviour {
 		}
 	}
 
-	public string takeNeededItem(GameObject[] neededItems) {
+	// 					item.GetComponent<SpriteRenderer>().color = Color.red;
+
+	public void addInventory(string inventoryItemName) {
+		if (inventoryItemName != null){
+			inventory.Add(inventoryItemName);
+			foreach(SpriteRenderer c in GetComponentsInChildren<SpriteRenderer>()) {
+				if (c.name.Contains(inventoryItemName)) {
+					Debug.Log("c.name.Contains(inventoryItemName) = " + c.name + " contains " + inventoryItemName);
+					c.enabled = true;
+					break;
+				} 
+			}
+			foreach (GameObject go in wishList) {
+				Debug.Log("go.name=" + go.name);
+				if (go.name.Contains(inventoryItemName)) {
+					Debug.Log("inventoryItemName.Contains(go.name) = " + inventoryItemName + " contains " + go.name);
+					go.GetComponent<SpriteRenderer>().color = Color.red;
+				}
+			}				
+		}
+
+	}
+	public string removeInventory(string itemName) {
 		string removeItem = null;
-		foreach (GameObject item in neededItems) {
-			// Debug.Log("checking:  " + item.name);
-			foreach (string inv in inventory) {
-				if (item.name.Contains(inv)) {
-					removeItem = inv;
+			foreach (string inventoryItemName in inventory) {
+				if (itemName.Contains(inventoryItemName)) {
+					Debug.Log("aitemName.Contains(inventoryItemName) = " + itemName + " contains " + inventoryItemName);
+					removeItem = inventoryItemName;
 					foreach(SpriteRenderer c in GetComponentsInChildren<SpriteRenderer>()) {
-						if (c.name.Contains(inv)) {
+						if (c.name.Contains(inventoryItemName)) {
 							c.enabled = false;
 							break;
 						}
 					}
-					Debug.Log("coloring item red:  " + item.name);					
-					item.GetComponent<SpriteRenderer>().color = Color.red;
-					break;
+					break; 
 				}
 			}
+			// Debug.Log("1 removeItems is " + removeItem); 
 			if (removeItem != null) {
 				inventory.Remove(removeItem);
+				foreach (GameObject go in wishList) {
+					if (go.name.Contains(removeItem)) {
+						Debug.Log("aremoveItem.Contains(go.name) = " + removeItem + " contains " + go.name);
+						go.GetComponent<SpriteRenderer>().color = Color.white;
+					}
+				}					
+			}
+			// Debug.Log("2 removeItems is " + removeItem);
+			return removeItem;
+				
+	
+	}
+
+	public string takeNeededItem(GameObject[] neededItems) {
+		string removeItem = null;
+		foreach (GameObject item in neededItems) {
+			// Debug.Log("checking:  " + item.name);
+			removeItem = removeInventory(item.name);
+			if (removeItem != null) {
 				break;
 			}
 
-			// if there were no items, then just take one
-			if (inventory.Count > 0) {
-				removeItem = (string) inventory[0];
-				inventory.RemoveAt(0);
-				foreach(SpriteRenderer c in GetComponentsInChildren<SpriteRenderer>()) {
-					if (c.name.Contains(removeItem)) {
-						c.enabled = false;
-						break;
-					}
-				}						
-			}
+
 		}	
-		updateWishList(removeItem);	
+		// if there were no items, then just take one
+		if (removeItem == null && inventory.Count > 0) {
+			removeItem = (string) inventory[0];
+			inventory.RemoveAt(0);
+			foreach(SpriteRenderer c in GetComponentsInChildren<SpriteRenderer>()) {
+				if (c.name.Contains(removeItem)) {
+					c.enabled = false;
+					break;
+				}
+			}						
+		}
 		return removeItem;
 	}
 	public bool hasNeededItem(GameObject[] neededItems) {
 		foreach (GameObject item in neededItems) {
 			// Debug.Log("checking:  " + item.name);
-			foreach (string inv in inventory) {
-				if (item.name.Contains(inv)) {
+			foreach (string inventoryItemName in inventory) {
+				if (item.name.Contains(inventoryItemName)) {
 					return true;
 				}
 			}
@@ -102,25 +141,13 @@ public class FightCart : MonoBehaviour {
 		
 	}
 
-	public void addInventory(string inv) {
-		if (inv != null){
-			inventory.Add(inv);
-			foreach(SpriteRenderer c in GetComponentsInChildren<SpriteRenderer>()) {
-				if (c.name.Contains(inv)) {
-					c.enabled = true;
-					break;
-				}
-			}	
-		}
-
-	}
 public void createWishList() {
 	// randomly generate wish list
 	uniqueNumbers = new List<int>();
 	finishedList = new List<int>();
 	GenerateRandomList();
 	for (int i = 0; i < 3;i++) {
-		Debug.Log(itemList2[finishedList[i]]);
+		// Debug.Log(itemList2[finishedList[i]]);
 		var wish = (GameObject) Instantiate(Resources.Load("prefab/" + itemList2[finishedList[i]]), transform.position + offsetVector[i], transform.rotation) ;	
 		wish.transform.parent = transform;
 		wishList[i] = wish;
@@ -169,7 +196,7 @@ public void createWishList() {
 		coolingDown = false;
 	}
 	IEnumerator fightCheck() {
-		Debug.Log("Starting fight check");
+		// Debug.Log("Starting fight check");
 		yield return new WaitForSeconds (2f);
 		float distance = Vector3.Distance (transform.position, targetCart.position);
 		// Debug.Log("distance: " + distance + " , " + cartDistance);
@@ -222,7 +249,7 @@ public void createWishList() {
 			// StopAllCoroutines();
 			firstContact = true;
 			collidedCart = coll.gameObject;
-			Debug.Log ("Cart("+cartName+") is aggroed by " + collidedCart.GetComponent<FightCart>().cartName);
+			// Debug.Log ("Cart("+cartName+") is aggroed by " + collidedCart.GetComponent<FightCart>().cartName);
 			
 			// GetComponent<SpriteRenderer> ().material.SetColor ("_Color", Color.red);
 			// GetComponent<SpriteRenderer> ().flipY = true;
@@ -239,7 +266,7 @@ public void createWishList() {
 			float distance = Vector3.Distance (transform.position, targetCart.position);
 			// Debug.Log("dist: " + distance + ", " + cartDistance);
 			if (distance < cartDistance) {
-				Debug.Log ("Cart caught");
+				// Debug.Log ("Cart caught");
 				followCart = false;
 
 				// and they fight
