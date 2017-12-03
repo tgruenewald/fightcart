@@ -9,7 +9,7 @@ public class Shopper : MonoBehaviour {
 	Shopper aggressor = null;
 	Shopper defender = null;
 	IEnumerator fightMatch(Shopper s1, Shopper s2) {
-		yield return new WaitForSeconds (1f);
+		yield return new WaitForSeconds (.2f);
 		if (aggressor == null) {
 			aggressor = s1;
 			defender = s2;

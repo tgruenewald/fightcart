@@ -39,12 +39,15 @@ public class FightCart : MonoBehaviour {
 
 	Vector2 randomDirection;
 
+	Vector2 prevLocation;
+
 	// Use this for initialization
 	void Start () {
 	createWishList();
 	createInventory();
 	door = GameObject.Find("door").transform;
 	setRandomDirection();
+	prevLocation = transform.position;
 	StartCoroutine(randomMove());
 	}
 	
@@ -260,9 +263,15 @@ public void createWishList() {
 	}
 
 	IEnumerator randomMove() {
-		yield return new WaitForSeconds (2f);
+		yield return new WaitForSeconds (Random.Range(.1f, 3f));
 		float distance = Vector3.Distance (transform.position, randomDirection);		
 		if (distance < 0.5f) {
+			setRandomDirection();
+		}
+
+		if (Vector3.Distance (transform.position, prevLocation) < 0.1f) {
+			// then stuck so try and move
+			prevLocation = transform.position;
 			setRandomDirection();
 		}
 
