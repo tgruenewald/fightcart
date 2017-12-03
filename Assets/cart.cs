@@ -13,6 +13,7 @@ public class Cart : FightCart {
 		cartName = "mine";
 		speed = .06f;
 		iAmEnemy = false;
+		createWishList();
 		// nextWantedItem() ;
 	}
 	

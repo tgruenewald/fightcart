@@ -23,15 +23,40 @@ public class FightCart : MonoBehaviour {
 
 	public Queue<Transform> itemQueue = new Queue<Transform>();
 
-	public Transform[] wishList = new Transform[3];
-	public ArrayList inventory = new ArrayList();
+	public string[] itemList2 = {"blue_circle", "blue_square", "blue_triangle", "cross", "doll"};
 
+	public GameObject[] wishList = new GameObject[3];
+	public ArrayList inventory = new ArrayList();
+	Vector3[] offsetVector = {new Vector3(.3f,.35f,0), new Vector3(0f,.35f,0), new Vector3(-.3f,.35f,0)};
+	private List<int> uniqueNumbers;
+	private List<int> finishedList;
 	// Use this for initialization
 	void Start () {
-
+	createWishList();
 	}
-
-
+public void createWishList() {
+	// randomly generate wish list
+	uniqueNumbers = new List<int>();
+	finishedList = new List<int>();
+	GenerateRandomList();
+	for (int i = 0; i < 3;i++) {
+		Debug.Log(itemList2[finishedList[i]]);
+		var wish = (GameObject) Instantiate(Resources.Load("prefab/" + itemList2[finishedList[i]]), transform.position + offsetVector[i], transform.rotation) ;	
+		wish.transform.parent = transform;
+		wishList[i] = wish;
+	}	
+}
+ public void GenerateRandomList(){
+    for(int i = 0; i < 5; i++){
+       uniqueNumbers.Add(i);
+    }
+    for(int i = 0; i< 5; i ++){
+      int ranNum = uniqueNumbers[Random.Range(0,uniqueNumbers.Count)];
+      finishedList.Add(ranNum);
+      uniqueNumbers.Remove(ranNum);
+    } 
+    //Done.
+ }
 	// Update is called once per frame
 	void Update () {
 	
