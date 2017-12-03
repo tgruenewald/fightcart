@@ -88,7 +88,7 @@ public class FightCart : MonoBehaviour {
 				inventory.Remove(removeItem);
 				foreach (GameObject go in wishList) {
 					if (go.name.Contains(removeItem)) {
-						Debug.Log("aremoveItem.Contains(go.name) = " + removeItem + " contains " + go.name);
+						Debug.Log("REMOVE aremoveItem.Contains(go.name) = " + removeItem + " contains " + go.name);
 						go.GetComponent<SpriteRenderer>().color = Color.white;
 					}
 				}					
