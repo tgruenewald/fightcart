@@ -44,16 +44,19 @@ public class CartTut1 : FightCart {
 public override void createWishList() {
 
 	var wish = (GameObject) Instantiate(Resources.Load("prefab/" + itemList2[0]), transform.position + offsetVector[0], transform.rotation) ;	
+	wish.tag = "wish";
 	wish.transform.parent = transform;
 	wishList[0] = wish;
 	Debug.Log("adding wish 1");
 
 	wish = (GameObject) Instantiate(Resources.Load("prefab/" + itemList2[1]), transform.position + offsetVector[1], transform.rotation) ;	
+	wish.tag = "wish";
 	wish.transform.parent = transform;
 	wishList[1] = wish;
 	Debug.Log("adding wish 2");
 
 	wish = (GameObject) Instantiate(Resources.Load("prefab/" + itemList2[2]), transform.position + offsetVector[2], transform.rotation) ;	
+	wish.tag = "wish";
 	wish.transform.parent = transform;
 	wishList[2] = wish;	
 	Debug.Log("adding wish 3");

@@ -97,7 +97,7 @@ public class FightCart : MonoBehaviour {
 			playPickup();
 			inventory.Add(inventoryItemName);
 			foreach(SpriteRenderer c in GetComponentsInChildren<SpriteRenderer>()) {
-				if (c.name.Contains(inventoryItemName) && !c.enabled) {
+				if (c.name.Contains(inventoryItemName) && !c.enabled && c.tag != "wish") {
 					// Debug.Log("c.name.Contains(inventoryItemName) = " + c.name + " contains " + inventoryItemName);
 					c.enabled = true;
 					break;
@@ -114,7 +114,8 @@ public class FightCart : MonoBehaviour {
 					// Debug.Log("aitemName.Contains(inventoryItemName) = " + itemName + " contains " + inventoryItemName);
 					removeItem = inventoryItemName;
 					foreach(SpriteRenderer c in GetComponentsInChildren<SpriteRenderer>()) {
-						if (c.name.Contains(inventoryItemName) && c.enabled) {
+						if (c.name.Contains(inventoryItemName) && c.enabled && c.tag != "wish") {
+							Debug.Log("c.name " + c.name + ", tag " + c.tag);
 							c.enabled = false;
 							break;
 						}
@@ -214,7 +215,8 @@ public class FightCart : MonoBehaviour {
 			removeItem = (string) inventory[0];
 			inventory.RemoveAt(0);
 			foreach(SpriteRenderer c in GetComponentsInChildren<SpriteRenderer>()) {
-				if (c.name.Contains(removeItem)) {
+				if (c.name.Contains(removeItem)  && c.tag != "wish") {
+					Debug.Log("c.name " + c.name + ", tag " + c.tag);
 					c.enabled = false;
 					break;
 				}
@@ -248,6 +250,7 @@ public virtual void createWishList() {
 	for (int i = 0; i < 3;i++) {
 		// Debug.Log(itemList2[finishedList[i]]);
 		var wish = (GameObject) Instantiate(Resources.Load("prefab/" + itemList2[finishedList[i]]), transform.position + offsetVector[i], transform.rotation) ;	
+		wish.tag = "wish";
 		wish.transform.parent = transform;
 		wishList[i] = wish;
 	}	
