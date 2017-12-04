@@ -155,10 +155,12 @@ public class FightCart : MonoBehaviour {
 		foreach (GameObject go in wishList) {
 			if (isInInventory(go.name)) {
 				go.GetComponent<SpriteRenderer>().color = Color.red;
+				go.GetComponent<SpriteRenderer>().sortingOrder = 3;
 				count++;
 			}
 			else {
 				go.GetComponent<SpriteRenderer>().color = Color.white;
+				go.GetComponent<SpriteRenderer>().sortingOrder = 3;
 			}
 		}
 		if (count == 3) {
