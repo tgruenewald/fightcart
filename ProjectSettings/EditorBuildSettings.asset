@@ -13,3 +13,7 @@ EditorBuildSettings:
     path: Assets/losescene.unity
   - enabled: 1
     path: Assets/winscene.unity
+  - enabled: 1
+    path: Assets/tut1.unity
+  - enabled: 1
+    path: Assets/tut2.unity

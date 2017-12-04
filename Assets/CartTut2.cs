@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
  
-public class CartTut1 : FightCart {
+public class CartTut2 : FightCart {
 	private Vector3 targetPosition;
 	private bool isMousePositionSet = false;
 	bool text2 = false;
@@ -32,15 +32,13 @@ public class CartTut1 : FightCart {
 	}
 
     	public override void createInventory() {
+			addInventory(itemList2[3]);
+			addInventory(itemList2[2]);
 			addInventory(itemList2[0]);
-			addInventory(itemList2[1]);
 		// for( int i = 3; i < 5; i++) {
 		// 	addInventory(itemList2[finishedList[i]]);	
 		// }
 		
-	}
-	public override GameObject create_shopper(Transform loc, Vector3 offsetVector) {
-		return (GameObject) Instantiate(Resources.Load("prefab/shopper_fight_1"), loc.position + offsetVector, loc.transform.rotation) ;
 	}
 public override void createWishList() {
 
@@ -83,11 +81,7 @@ public override void createWishList() {
 	}	
 
 	void FixedUpdate () {
-		if (winner && !text2) {
-			text2 = true;
-			GameObject.Find("text1").GetComponent<SpriteRenderer>().enabled = false;
-			GameObject.Find("text2").GetComponent<SpriteRenderer>().enabled = true;
-		}
+
 		if (!inFight) {
 			if (Input.GetMouseButtonDown (0)) {
 				//targetPosition = Input.mousePosition;

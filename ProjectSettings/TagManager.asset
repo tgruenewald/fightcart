@@ -10,6 +10,8 @@ TagManager:
   - blue_square
   - item
   - cart_bottom
+  - wish
+  - door
   layers:
   - Default
   - TransparentFX
