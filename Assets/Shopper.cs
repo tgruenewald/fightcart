@@ -71,6 +71,13 @@ public class Shopper : MonoBehaviour {
 
 
 	}
+	public virtual void setHealth() {
+		health = 6 - cart.GetComponent<FightCart>().inventory.Count;
+		if (health <= 0) {
+			health = Random.Range(1,2);
+		}		
+
+	}
 	public void fight(Shopper s2) {
 		StartCoroutine (fightMatch (this,s2));
 	}

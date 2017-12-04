@@ -45,8 +45,8 @@ public class Referee : MonoBehaviour {
 				x = c2fr.position.x;
 				loc = c2fr;
 			}
-			var shopper1 = (GameObject) Instantiate(Resources.Load("prefab/shopper_fight_0"), loc.position + offsetVector, loc.transform.rotation) ;
-			var shopper2 = (GameObject) Instantiate(Resources.Load("prefab/shopper_fight_0"), loc.position - offsetVector, loc.transform.rotation) ;
+			var shopper1 = c1.create_shopper(c1fl, offsetVector);
+			var shopper2 = c2.create_shopper(c1fl, -offsetVector);
 
 			shopper1.GetComponent<SpriteRenderer> ().flipX = true;
 			shopper1.GetComponent<Shopper> ().cart = c1;
@@ -65,15 +65,9 @@ public class Referee : MonoBehaviour {
 			shopper2.transform.localScale = c2.shopper.transform.localScale;
 
 			// the fewer items, the stronger you are			
-			shopper1.GetComponent<Shopper> ().health = 6 - cart1.GetComponent<FightCart>().inventory.Count;
-			shopper2.GetComponent<Shopper> ().health = 6 - cart2.GetComponent<FightCart>().inventory.Count;
+			shopper1.GetComponent<Shopper> ().setHealth();
+			shopper2.GetComponent<Shopper> ().setHealth();
 
-			if (shopper1.GetComponent<Shopper> ().health <= 0) {
-				shopper1.GetComponent<Shopper> ().health = Random.Range(1,2);
-			}
-			if (shopper2.GetComponent<Shopper> ().health <= 0) {
-				shopper2.GetComponent<Shopper> ().health = Random.Range(1,2);
-			}
 
 			shopper1.GetComponent<Shopper> ().fight (shopper2.GetComponent<Shopper> ());
 		}

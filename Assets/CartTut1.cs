@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
  
-public class Cart : FightCart {
+public class CartTut1 : FightCart {
 	private Vector3 targetPosition;
 	private bool isMousePositionSet = false;
 
@@ -29,6 +29,35 @@ public class Cart : FightCart {
 	void Update () {
 		
 	}
+
+    	public override void createInventory() {
+			addInventory(itemList2[0]);
+			addInventory(itemList2[1]);
+		// for( int i = 3; i < 5; i++) {
+		// 	addInventory(itemList2[finishedList[i]]);	
+		// }
+		
+	}
+	public override GameObject create_shopper(Transform loc, Vector3 offsetVector) {
+		return (GameObject) Instantiate(Resources.Load("prefab/shopper_fight_1"), loc.position + offsetVector, loc.transform.rotation) ;
+	}
+public override void createWishList() {
+
+	var wish = (GameObject) Instantiate(Resources.Load("prefab/" + itemList2[0]), transform.position + offsetVector[0], transform.rotation) ;	
+	wish.transform.parent = transform;
+	wishList[0] = wish;
+	Debug.Log("adding wish 1");
+
+	wish = (GameObject) Instantiate(Resources.Load("prefab/" + itemList2[1]), transform.position + offsetVector[1], transform.rotation) ;	
+	wish.transform.parent = transform;
+	wishList[1] = wish;
+	Debug.Log("adding wish 2");
+
+	wish = (GameObject) Instantiate(Resources.Load("prefab/" + itemList2[2]), transform.position + offsetVector[2], transform.rotation) ;	
+	wish.transform.parent = transform;
+	wishList[2] = wish;	
+	Debug.Log("adding wish 3");
+}
 
 	public override void playPickup() {
 		playSound("pickup");

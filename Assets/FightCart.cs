@@ -33,34 +33,47 @@ public class FightCart : MonoBehaviour {
 
 	public GameObject[] wishList = new GameObject[3];
 	public ArrayList inventory = new ArrayList();
-	Vector3[] offsetVector = {new Vector3(.3f,.35f,0), new Vector3(0f,.35f,0), new Vector3(-.3f,.35f,0)};
-	private List<int> uniqueNumbers;
-	private List<int> finishedList;
+	public Vector3[] offsetVector = {new Vector3(.3f,.35f,0), new Vector3(0f,.35f,0), new Vector3(-.3f,.35f,0)};
+	public List<int> uniqueNumbers;
+	public List<int> finishedList;
 
 	public GameObject hat;
 	public GameObject shopper;
 
-	Transform door;
+	public Transform door;
 
-	Vector2 randomDirection;
+	public Vector2 randomDirection;
 
-	Vector2 prevLocation;
+	public Vector2 prevLocation;
 
-	Color[] hatColorList = {Color.white, Color.blue, Color.red, Color.green, Color.yellow};
+	public Color[] hatColorList = {Color.white, Color.blue, Color.red, Color.green, Color.yellow};
 	public Color hatColor;
 
 	public Vector3 origSize;
 	// Use this for initialization
 	void Start () {
+		initialize_cart();
+	}
+
+	public virtual void initialize_cart() {
 		hatColor = hatColorList[Random.Range(0,5)];
 		hat.GetComponent<SpriteRenderer>().color = hatColor;
 		origSize = shopper.transform.localScale;
 	createWishList();
 	createInventory();
+	fight_cart_init();
+
+	}
+
+	public virtual void fight_cart_init() {
 	door = GameObject.Find("door").transform;
 	setRandomDirection();
 	prevLocation = transform.position;
-	StartCoroutine(randomMove());
+	StartCoroutine(randomMove());		
+	}
+
+	public virtual GameObject create_shopper(Transform loc, Vector3 offsetVector) {
+		return (GameObject) Instantiate(Resources.Load("prefab/shopper_fight_0"), loc.position + offsetVector, loc.transform.rotation) ;
 	}
 	
 	void setRandomDirection() {
@@ -220,14 +233,14 @@ public class FightCart : MonoBehaviour {
 		}
 		return false;
 	}
-	public void createInventory() {
+	public virtual void createInventory() {
 		for( int i = 3; i < 5; i++) {
 			addInventory(itemList2[finishedList[i]]);	
 		}
 		
 	}
 
-public void createWishList() {
+public virtual void createWishList() {
 	// randomly generate wish list
 	uniqueNumbers = new List<int>();
 	finishedList = new List<int>();
