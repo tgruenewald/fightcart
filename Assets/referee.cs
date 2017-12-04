@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Referee : MonoBehaviour {
-	Vector3 offsetVector = new Vector3(.3f,0,0);
+	Vector3 whichSideVector = new Vector3(.3f,0,0);
 	public void start_fight(GameObject cart1, GameObject cart2) {
 
 		FightCart c1 = cart1.GetComponent<FightCart> ();			
@@ -45,8 +45,8 @@ public class Referee : MonoBehaviour {
 				x = c2fr.position.x;
 				loc = c2fr;
 			}
-			var shopper1 = c1.create_shopper(c1fl, offsetVector);
-			var shopper2 = c2.create_shopper(c1fl, -offsetVector);
+			var shopper1 = c1.create_shopper(c1fl, whichSideVector);
+			var shopper2 = c2.create_shopper(c1fl, -whichSideVector);
 
 			shopper1.GetComponent<SpriteRenderer> ().flipX = true;
 			shopper1.GetComponent<Shopper> ().cart = c1;

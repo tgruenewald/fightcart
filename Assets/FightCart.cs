@@ -56,6 +56,7 @@ public class FightCart : MonoBehaviour {
 	}
 
 	public virtual void initialize_cart() {
+		Color[] hatColorList = {Color.white, Color.blue, Color.red, Color.green, Color.yellow};
 		hatColor = hatColorList[Random.Range(0,5)];
 		hat.GetComponent<SpriteRenderer>().color = hatColor;
 		origSize = shopper.transform.localScale;
@@ -72,8 +73,8 @@ public class FightCart : MonoBehaviour {
 	StartCoroutine(randomMove());		
 	}
 
-	public virtual GameObject create_shopper(Transform loc, Vector3 offsetVector) {
-		return (GameObject) Instantiate(Resources.Load("prefab/shopper_fight_0"), loc.position + offsetVector, loc.transform.rotation) ;
+	public virtual GameObject create_shopper(Transform loc, Vector3 whichSideVector) {
+		return (GameObject) Instantiate(Resources.Load("prefab/shopper_fight_0"), loc.position + whichSideVector, loc.transform.rotation) ;
 	}
 	
 	void setRandomDirection() {
@@ -247,8 +248,10 @@ public virtual void createWishList() {
 	uniqueNumbers = new List<int>();
 	finishedList = new List<int>();
 	GenerateRandomList();
+	Vector3[] offsetVector = {new Vector3(.3f,.35f,0), new Vector3(0f,.35f,0), new Vector3(-.3f,.35f,0)};
 	for (int i = 0; i < 3;i++) {
 		// Debug.Log(itemList2[finishedList[i]]);
+		Debug.Log(offsetVector.Length);
 		var wish = (GameObject) Instantiate(Resources.Load("prefab/" + itemList2[finishedList[i]]), transform.position + offsetVector[i], transform.rotation) ;	
 		wish.tag = "wish";
 		wish.transform.parent = transform;
